@@ -2,7 +2,19 @@ body, html {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    background-color: #000;
+    background-color: #554029;
+}
+
+.meeboard {
+    /* position: relative; */
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2% 3%;
+    /* padding-bottom: 1%; */
+    box-sizing: border-box;
 }
 
 .meeboard_left-border {
@@ -43,5 +55,31 @@ body, html {
     background: repeating-linear-gradient(to bottom, #554029 1px, #2f210b 2px, #624110 3px, #4a3d15 4px, #5e4424 5px);
     clip-path: polygon(0 100%, 50% 0, 100% 100%);
     z-index: 0;
+}
+
+.meeboard_face {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 10px;
+    background: linear-gradient(to right, #000, #222, #333, #222, #000);
+    box-sizing: border-box;
+    z-index: 1;
+}
+
+.meeboard_control-panel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 40vh;
+    border: 1px solid #000;
+    border-radius: 5px;
+    background: linear-gradient(to right, #aaa, #ddd, #fff, #ddd, #aaa);
+    box-sizing: border-box;
+    z-index: 1;
 }
 
