@@ -1,0 +1,47 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-color: #000;
+}
+
+.meeboard_left-border {
+    position: absolute;
+    left: 0;
+    width: 50vw;
+    height: 100vh;
+    background: repeating-linear-gradient(to right, #554029 1px, #2f210b 2px, #624110 3px, #4a3d15 4px, #5e4424 5px);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    z-index: 0;
+}
+
+.meeboard_top-border {
+    position: absolute;
+    top: 0;
+    width: 100vw;
+    height: 50vh;
+    background: repeating-linear-gradient(to bottom, #554029 1px, #2f210b 2px, #624110 3px, #4a3d15 4px, #5e4424 5px);
+    clip-path: polygon(0 0, 50% 100%, 100% 0);
+    z-index: 0;
+}
+
+.meeboard_right-border {
+    position: absolute;
+    right: 0;
+    width: 50vw;
+    height: 100vh;
+    background: repeating-linear-gradient(to right, #554029 1px, #2f210b 2px, #624110 3px, #4a3d15 4px, #5e4424 5px);
+    clip-path: polygon(100% 0, 100% 100%, 0 50%);
+    z-index: 0;
+}
+
+.meeboard_bottom-border {
+    position: absolute;
+    bottom: 0;
+    width: 100vw;
+    height: 50vh;
+    background: repeating-linear-gradient(to bottom, #554029 1px, #2f210b 2px, #624110 3px, #4a3d15 4px, #5e4424 5px);
+    clip-path: polygon(0 100%, 50% 0, 100% 100%);
+    z-index: 0;
+}
+
