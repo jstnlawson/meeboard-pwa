@@ -13,7 +13,30 @@
       <div class="meeboard_right-border"></div>
       <div class="meeboard_bottom-border"></div>
       <div class="meeboard_face">
-        <div class="meeboard_control-panel"></div>
+        <div class="meeboard_control-panel">
+          <div class="effect-btn">
+            <!-- <span class="effect-title">reverb</span> -->
+            <div class="effect-btn__bg">
+              <button class="effect-btn__cover reverb"></button>
+            </div>
+          </div>
+          <div class="effect-btn">
+            <div class="effect-btn__bg">
+              <!-- <span class="effect-title">delay</span> -->
+              <button class="effect-btn__cover delay">
+                <div class="delay-light"></div>
+              </button>
+            </div>
+          </div>
+          <div class="effect-btn">
+            <div class="effect-btn__bg">
+              <!-- <span class="effect-title">distortion</span> -->
+              <button class="effect-btn__cover distortion">
+                <div class="distortion-light"></div>
+              </button>
+            </div>
+          </div>
+        </div>
         <div class="meeboard_slider-and-input">
           <div class="input-select__container">
             <input min="0" max="100" step="1" class="slider" type="range" />
@@ -35,7 +58,6 @@
           </div>
         </div>
       </div>
-     
     </div>
     <button class="temp-btn" id="startRecord">Start Recording</button>
     <button class="temp-btn" id="stopRecord" disabled>Stop Recording</button>
