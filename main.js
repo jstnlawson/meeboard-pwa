@@ -1,69 +1,15 @@
-// const startRecordButton = document.getElementById('startRecord');
-// const stopRecordButton = document.getElementById('stopRecord');
-// const audioPlayback = document.getElementById('audioPlayback');
+const openButton = document.querySelector('[data-open-modal]');
+const closeButton = document.querySelector('[data-close-modal]');
+const modal = document.querySelector('[data-modal]');
 
-// let mediaRecorder;
-// let audioChunks = [];
+openButton.addEventListener('click', () => {
+    modal.showModal();
+});
 
-// // Define MIME types to be tested
-// const mimeTypes = ["audio/webm", "audio/mp4","video/mp4", "audio/mpeg", "audio/wav"];
+closeButton.addEventListener('click', () => {
+    modal.close();
+});
 
-// startRecordButton.addEventListener('click', async () => {
-
-//     audioChunks = [];
-//     // Request microphone access
-//     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-
-//     // Function to start recording with retries for different MIME types
-//     const startRecording = async (mimeIndex = 0) => {
-//         try {
-//             // Set the mimeType to the current item in the mimeTypes array
-//             const mimeType = mimeTypes[mimeIndex];
-//             MediaRecorder.isTypeSupported(mimeType);
-
-//             // Create new MediaRecorder instance using the stream
-//             mediaRecorder = new MediaRecorder(stream, { mimeType });
-
-//             // Handle data available event
-//             mediaRecorder.ondataavailable = (event) => {
-//                 if (event.data.size > 0) {
-//                     audioChunks.push(event.data);
-//                 }
-//             };
-
-//             // Handle stop event
-//             mediaRecorder.onstop = () => {
-//                 const audioBlob = new Blob(audioChunks, { type: mimeType });
-//                 const audioUrl = URL.createObjectURL(audioBlob);
-//                 audioPlayback.src = audioUrl;
-//                 audioChunks = [];
-//             };
-
-//             // Start recording
-//             mediaRecorder.start();
-//             startRecordButton.disabled = true;
-//             stopRecordButton.disabled = false;
-//         } catch (err) {
-//             console.log("Error recording", err.message);
-
-//             // Retry with the next mimeType if the current mimeType fails
-//             const retries = mimeTypes.length;
-//             if (mimeIndex < retries - 1) {
-//                 startRecording(mimeIndex + 1);
-//             }
-//         }
-//     };
-
-//     // Start recording with retries for different MIME types
-//     startRecording();
-// });
-
-// stopRecordButton.addEventListener('click', () => {
-//     // Stop recording
-//     mediaRecorder.stop();
-//     startRecordButton.disabled = false;
-//     stopRecordButton.disabled = true;
-// });
 
 const startRecordButton = document.getElementById('startRecord');
 const stopRecordButton = document.getElementById('stopRecord');

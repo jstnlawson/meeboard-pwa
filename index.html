@@ -7,6 +7,14 @@
     <title>Home</title>
   </head>
   <body>
+
+    <dialog data-modal class="modal">
+      <button class="temp-btn" id="startRecord">Start Recording</button>
+    <button class="temp-btn" id="stopRecord" disabled>Stop Recording</button>
+    <audio id="audioPlayback" controls></audio>
+    <button data-close-modal class="close-modal-btn">Close</button>
+    </dialog>
+
     <div class="meeboard">
       <div class="meeboard_left-border"></div>
       <div class="meeboard_top-border"></div>
@@ -25,6 +33,9 @@
             </div>
             <div class="control-panel__slider">
                 <input min="0" max="100" step="1" class="slider" type="range" />
+            </div>
+            <div class="record-btn">
+                <button data-open-modal class="record-btn__inner">rec</button>
             </div>
         </div>
         <div class="meeboard_slider-and-input">
@@ -49,9 +60,7 @@
         </div>
       </div>
     </div>
-    <button class="temp-btn" id="startRecord">Start Recording</button>
-    <button class="temp-btn" id="stopRecord" disabled>Stop Recording</button>
-    <audio id="audioPlayback" controls></audio>
+    
     <script type="module" src="./main.js"></script>
   </body>
 </html>
