@@ -296,3 +296,13 @@ dialog::backdrop {
 }
 
 
+
+select {
+    /* -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position-x: 100%;
+    background-position-y: center; */
+  }
+  
