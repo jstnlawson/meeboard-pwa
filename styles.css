@@ -2,7 +2,7 @@
     --teal: #00fff2;
     --purple: #52489cbe;
     --yellow: #fffd82;
-    --pink: #f45b68ce;
+    --pink: ;
     --brown: #524632;
 }
 
@@ -300,23 +300,34 @@ dialog::backdrop {
     Sound Select
 *****************************************************/
 
+/* .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    flex-direction: column;
+    max-height: 29vh;
+    box-sizing: border-box;
+} */
+
 .control-panel__sounds {
     display: flex;
     gap: 3px;
     border: 1px solid #000;
-    padding: 9px;
+    padding: 6px;
     border-radius: 9px;
-    position: relative;
+    /* position: relative; */
     width: fit-content;
+    /* max-height: 20vh; */
 }
 
 .sounds-title {
-    position: absolute;
+    /* position: absolute; */
     background-color: #eee;
-    background: linear-gradient(to right, #eee, #fff);
-    top: -15%;
-    font-size: 16px;
+    background: transparent;
+    /* top: -15%; */
+    font-size: 12px;
     padding: 1px;
+    margin-left: 6px;
 }
 
 .select-btn_wrapper {
@@ -331,8 +342,8 @@ dialog::backdrop {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     border: 1px solid #000;
     border-radius: 50%;
     color: #fff;
