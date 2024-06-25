@@ -30,7 +30,7 @@ export function createNoteTable() {
         { note: "A", freq: 55.000000000000000 },
         { note: "A#", freq: 58.270470189761239 },
         { note: "B", freq: 61.735412657015513 },
-        { note: "C", freq: 65.406391325149658},
+        // { note: "C", freq: 65.406391325149658},
     ];
 
     for (let octave = 1; octave <= 8; octave++) {
@@ -139,51 +139,48 @@ export function setup() {
     cosineTerms = new Float32Array(sineTerms.length);
     customWaveform = audioContext.createPeriodicWave(cosineTerms, sineTerms);
 
+    // volumeControl.addEventListener("input", function() {
+    //     mainGainNode.gain.value = volumeControl.value;
+    // });
+
     volumeControl.addEventListener("input", function() {
-        mainGainNode.gain.value = volumeControl.value;
+        const volume = parseFloat(volumeControl.value);
+        console.log("Volume control value:", volume);
+        mainGainNode.gain.value = volume;
+        console.log("Main gain value set to:", mainGainNode.gain.value);
     });
 
-    keyboard.addEventListener("mousedown", function(event) {
-        if (event.target.tagName !== "BUTTON") return;
+    function handleEvent(event) {
+        const key = event.target;
+        if (key.tagName !== "BUTTON") return;
 
-        const freq = event.target.dataset.frequency;
+        const freq = key.dataset.frequency;
         if (!freq) return;
 
         const osc = playNote(freq);
-        oscList[event.target.dataset.frequency] = osc;
+        oscList[key.dataset.frequency] = osc;
 
-        event.target.addEventListener("mouseup", function() {
-            stopNote(osc);
-            delete oscList[event.target.dataset.frequency];
-        }, { once: true });
+        key.addEventListener("mouseup", () => stopEvent(key, osc), { once: true });
+        key.addEventListener("mouseleave", () => stopEvent(key, osc), { once: true });
+        key.addEventListener("touchend", () => stopEvent(key, osc), { once: true });
+        key.addEventListener("touchcancel", () => stopEvent(key, osc), { once: true });
+    }
 
-        event.target.addEventListener("mouseleave", function() {
-            stopNote(osc);
-            delete oscList[event.target.dataset.frequency];
-        }, { once: true });
-    });
-
-    keyboard.addEventListener("mouseup", function(event) {
-        if (event.target.tagName !== "BUTTON") return;
-
-        const osc = oscList[event.target.dataset.frequency];
-        if (!osc) return;
-
+    function stopEvent(key, osc) {
         stopNote(osc);
-        delete oscList[event.target.dataset.frequency];
-    });
+        delete oscList[key.dataset.frequency];
+    }
 
-    keyboard.addEventListener("mouseleave", function(event) {
-        if (event.target.tagName !== "BUTTON") return;
-
-        const osc = oscList[event.target.dataset.frequency];
-        if (!osc) return;
-
-        stopNote(osc);
-        delete oscList[event.target.dataset.frequency];
-    });
+    keyboard.addEventListener("mousedown", handleEvent);
+    keyboard.addEventListener("touchstart", handleEvent);
+    // keyboard.addEventListener("mouseup", handleEvent);
+    // keyboard.addEventListener("touchend", handleEvent);
+    // keyboard.addEventListener("mouseleave", handleEvent);
+    // keyboard.addEventListener("touchcancel", handleEvent);
 }
 
-// createNoteTable();
-// assignFrequenciesToKeys();
-// setup();
+// export function volumeControlChange() {
+//     volumeControl.addEventListener("input", function() {
+//         mainGainNode.gain.value = volumeControl.value;
+//     });
+// }

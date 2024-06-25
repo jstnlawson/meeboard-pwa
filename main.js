@@ -3,12 +3,14 @@ import {
     assignFrequenciesToKeys,
     setup,
     playNote,
-    stopNote
+    stopNote,
+    // volumeControlChange
 } from './synth.js';
 
 createNoteTable();
 assignFrequenciesToKeys();
 setup();
+// volumeControlChange();
 
 const openButton = document.querySelector('[data-open-modal]');
 const closeButton = document.querySelector('[data-close-modal]');
