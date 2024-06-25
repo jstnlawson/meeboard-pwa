@@ -7,12 +7,11 @@
     <title>Home</title>
   </head>
   <body>
-
     <dialog data-modal class="modal">
       <button class="temp-btn" id="startRecord">Start Recording</button>
-    <button class="temp-btn" id="stopRecord" disabled>Stop Recording</button>
-    <audio id="audioPlayback" controls></audio>
-    <button data-close-modal class="close-modal-btn">Close</button>
+      <button class="temp-btn" id="stopRecord" disabled>Stop Recording</button>
+      <audio id="audioPlayback" controls></audio>
+      <button data-close-modal class="close-modal-btn">Close</button>
     </dialog>
 
     <div class="meeboard">
@@ -22,21 +21,46 @@
       <div class="meeboard_bottom-border"></div>
       <div class="meeboard_face">
         <div class="meeboard_control-panel">
-            <div class="control-panel__slider">
-                <input min="0" max="100" step="1" class="slider" type="range" />
-            </div>
-            <div class="control-panel__slider">
-                <input min="0" max="100" step="1" class="slider" type="range" />
-            </div>
-            <div class="control-panel__slider">
-                <input min="0" max="100" step="1" class="slider" type="range" />
-            </div>
-            <div class="control-panel__slider">
-                <input min="0" max="100" step="1" class="slider" type="range" />
-            </div>
-            <div class="record-btn">
-                <button data-open-modal class="record-btn__inner">rec</button>
-            </div>
+          <div class="control-panel__slider">
+            <span class="control-panel__slider-name">volume</span>
+            <input
+              type="range"
+              min="0.0"
+              max="1.0"
+              step="0.01"
+              value="0.5"
+              list="volumes"
+              name="volume"
+              class="slider"
+            />
+            <datalist id="volumes">
+              <option value="0.0" label="Mute"></option>
+              <option value="1.0" label="100%"></option>
+            </datalist>
+          </div>
+          <div class="control-panel__slider">
+            <span>Current waveform: </span>
+            <select name="waveform">
+              <option value="sine">Sine</option>
+              <option value="square" selected>Square</option>
+              <option value="sawtooth">Sawtooth</option>
+              <option value="triangle">Triangle</option>
+              <option value="custom">Custom</option>
+            </select>
+          </div>
+        </div>
+          <!-- <div class="control-panel__slider">
+            <input min="0" max="100" step="1" class="slider" type="range" />
+          </div>
+          <div class="control-panel__slider">
+            <input min="0" max="100" step="1" class="slider" type="range" />
+          </div>
+          <div class="control-panel__slider">
+            <input min="0" max="100" step="1" class="slider" type="range" />
+          </div> -->
+          <div class="record-btn">
+            <button data-open-modal class="record-btn__inner">rec</button>
+          </div>
         </div>
         <div class="meeboard_slider-and-input">
           <div class="input-select__container">
@@ -60,7 +84,7 @@
         </div>
       </div>
     </div>
-    
+
     <script type="module" src="./main.js"></script>
   </body>
 </html>

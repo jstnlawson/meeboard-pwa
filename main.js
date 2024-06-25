@@ -1,3 +1,15 @@
+import {
+    createNoteTable,
+    assignFrequenciesToKeys,
+    setup,
+    playNote,
+    stopNote
+} from './synth.js';
+
+createNoteTable();
+assignFrequenciesToKeys();
+setup();
+
 const openButton = document.querySelector('[data-open-modal]');
 const closeButton = document.querySelector('[data-close-modal]');
 const modal = document.querySelector('[data-modal]');
