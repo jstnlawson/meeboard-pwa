@@ -11,6 +11,22 @@ let customWaveform = null;
 let sineTerms = null;
 let cosineTerms = null;
 
+const keyMapping = {
+    'a': { note: 'C', octave: 3 },
+    'w': { note: 'C#', octave: 3 },
+    's': { note: 'D', octave: 3 },
+    'e': { note: 'D#', octave: 3 },
+    'd': { note: 'E', octave: 3 },
+    'f': { note: 'F', octave: 3 },
+    't': { note: 'F#', octave: 3 },
+    'g': { note: 'G', octave: 3 },
+    'y': { note: 'G#', octave: 3 },
+    'h': { note: 'A', octave: 3 },
+    'u': { note: 'A#', octave: 3 },
+    'j': { note: 'B', octave: 3 },
+    'k': { note: 'C', octave: 4 }
+};
+
 export function createNoteTable() {
     // const noteFreq = [];
     for (let i=0; i< 9; i++) {
@@ -30,8 +46,9 @@ export function createNoteTable() {
         { note: "A", freq: 55.000000000000000 },
         { note: "A#", freq: 58.270470189761239 },
         { note: "B", freq: 61.735412657015513 },
-        // { note: "C", freq: 65.406391325149658},
     ];
+
+
 
     for (let octave = 1; octave <= 8; octave++) {
         notes.forEach((note) => {
@@ -44,7 +61,8 @@ export function createNoteTable() {
 export function assignFrequenciesToKeys() {
     const keys = keyboard.querySelectorAll("button");
 
-    keys.forEach((key, index) => {
+    //keys.forEach((key, index) => {
+    keys.forEach((key) => {
         let octave = 4;
         let note = null;
 
@@ -103,8 +121,16 @@ export function assignFrequenciesToKeys() {
                 break;
         }
 
+        // if (note && octave) {
+        //     key.dataset.frequency = noteFreq[octave][note];
+        // }
         if (note && octave) {
             key.dataset.frequency = noteFreq[octave][note];
+            for (const [keyboardKey, mappedNote] of Object.entries(keyMapping)) {
+                if (mappedNote.note === note && mappedNote.octave === octave) {
+                    key.dataset.key = keyboardKey;
+                }
+            }
         }
     });
 }
@@ -129,6 +155,38 @@ export function playNote(freq) {
 export function stopNote(osc) {
     osc.stop();
 }
+
+document.addEventListener('keydown', (event) => {
+    const key = event.key.toLowerCase();
+    const keyData = keyMapping[key];
+
+    if (keyData) {
+        const note = keyData.note;
+        const octave = keyData.octave;
+        const frequency = noteFreq[octave][note];
+
+        if (!oscList[frequency]) { // Prevent duplicate notes
+            const osc = playNote(frequency);
+            oscList[frequency] = osc;
+        }
+    }
+});
+
+document.addEventListener('keyup', (event) => {
+    const key = event.key.toLowerCase();
+    const keyData = keyMapping[key];
+
+    if (keyData) {
+        const note = keyData.note;
+        const octave = keyData.octave;
+        const frequency = noteFreq[octave][note];
+
+        if (oscList[frequency]) {
+            stopNote(oscList[frequency]);
+            delete oscList[frequency];
+        }
+    }
+});
 
 export function setup() {
     mainGainNode = audioContext.createGain();
@@ -178,10 +236,4 @@ export function setup() {
     // keyboard.addEventListener("mouseleave", handleEvent);
     // keyboard.addEventListener("touchcancel", handleEvent);
 }
-
-// export function volumeControlChange() {
-//     volumeControl.addEventListener("input", function() {
-//         mainGainNode.gain.value = volumeControl.value;
-//     });
-// }
 

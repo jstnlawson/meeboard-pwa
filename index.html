@@ -49,19 +49,22 @@
             </select>
           </div> -->
           <div class="control-panel__sounds">
-            <span>Current waveform: </span>
-            <div class="custom-select-wrapper">
-              <button class="select-btn" id="selectPrev">&lt;</button>
-              <button class="select-btn" id="selectNext">&gt;</button>
-              <select name="waveform" id="waveformSelect">
-                <option value="sine">Sine</option>
-                <option value="square" selected>Square</option>
-                <option value="sawtooth">Sawtooth</option>
-                <option value="triangle">Triangle</option>
-                <option value="custom">Custom</option>
-              </select>
-              
+            <span class="sounds-title">sounds</span>
+            <div class="select-btn_wrapper">
+              <button class="select-btn" id="selectPrev">&#x25B2;</button>
+              <button class="select-btn" id="selectNext">&#x25BC;</button>
             </div>
+            <div class="screen-bg">
+              <select class="sound-select_screen" name="waveform" id="waveformSelect">
+                <option value="sine">sine</option>
+                <option value="square" selected>square</option>
+                <option value="sawtooth">sawtooth</option>
+                <option value="triangle">triangle</option>
+                <option value="custom">custom</option>
+              </select>
+            </div>
+              
+            
           </div>
           <div class="record-btn">
             <button data-open-modal class="record-btn__inner">rec</button>
