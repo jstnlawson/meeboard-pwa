@@ -1,32 +1,26 @@
 import {
-    createNoteTable,
-    assignFrequenciesToKeys,
-    setup,
-    playNote,
-    stopNote,
-} from './synth.js';
+  createNoteTable,
+  assignFrequenciesToKeys,
+  setup,
+  playNote,
+  stopNote,
+} from "./synth.js";
 
-createNoteTable();
-assignFrequenciesToKeys();
-setup();
+import { initializeRecorder } from "./recorder.js";
 
-import { initializeRecorder } from './recorder.js';
+const startModal = document.querySelector("[data-modal-start]");
+const startButton = document.querySelector("[data-start-app]");
+let audioContext;
 
-initializeRecorder();
+startModal.showModal();
 
-var select = document.getElementById('waveformSelect');
-var selectPrev = document.getElementById('selectPrev');
-  var selectNext = document.getElementById('selectNext');
+startButton.addEventListener("click", async () => {
+  startModal.close();
+  audioContext = new AudioContext();
 
-  // Event listener for previous button
-  selectPrev.addEventListener('click', function() {
-    select.selectedIndex = Math.max(select.selectedIndex - 1, 0);
-  });
+  createNoteTable();
+  assignFrequenciesToKeys();
+  setup(audioContext);
 
-  // Event listener for next button
-  selectNext.addEventListener('click', function() {
-    select.selectedIndex = Math.min(select.selectedIndex + 1, select.options.length - 1);
-  });
-
-//select.size = select.options.length;
-select.size = select.options.length - 2;
+  initializeRecorder(audioContext);
+});

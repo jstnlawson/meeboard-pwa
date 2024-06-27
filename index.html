@@ -7,6 +7,9 @@
     <title>Home</title>
   </head>
   <body>
+    <dialog data-modal-start class="start-modal">
+      <button data-start-app class="temp-btn" id="startApp">Start App</button>
+    </dialog>
     <dialog data-modal class="modal">
       <button class="temp-btn" id="startRecord">Start Recording</button>
       <button class="temp-btn" id="stopRecord" disabled>Stop Recording</button>
@@ -38,16 +41,6 @@
               <option value="1.0" label="100%"></option>
             </datalist>
           </div>
-          <!-- <div class="control-panel__sounds">
-            <span>Current waveform: </span>
-            <select name="waveform" id="waveformSelect">
-              <option value="sine">Sine</option>
-              <option value="square" selected>Square</option>
-              <option value="sawtooth">Sawtooth</option>
-              <option value="triangle">Triangle</option>
-              <option value="custom">Custom</option>
-            </select>
-          </div> -->
           <div class="wrapper">
             <span class="sounds-title">sounds</span>
 
@@ -64,9 +57,7 @@
                 <option value="triangle">triangle</option>
                 <option value="custom">custom</option>
               </select>
-            </div>
-              
-            
+            </div>          
           </div>
         </div>
           <div class="record-btn">
