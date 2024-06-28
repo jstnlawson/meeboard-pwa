@@ -6,7 +6,11 @@ import {
   stopNote,
 } from "./synth.js";
 
-import { initializeRecorder } from "./recorder.js";
+import { 
+  initializeRecorder,
+  // audioBufferToWavBlob,
+  // writeString,
+} from "./recorder.js";
 
 const startModal = document.querySelector("[data-modal-start]");
 const startButton = document.querySelector("[data-start-app]");
