@@ -12,6 +12,7 @@ closeButton.addEventListener("click", () => {
 
 const startRecordButton = document.getElementById("startRecord");
 const stopRecordButton = document.getElementById("stopRecord");
+const customPlayButton = document.getElementById("playRecording");
 const audioPlayback = document.getElementById("audioPlayback");
 
 let mediaRecorder;
@@ -149,19 +150,23 @@ stopRecordButton.addEventListener("click", () => {
 
     audioChunks = [];
     startRecordButton.disabled = false;
+    customPlayButton.disabled = false;
   };
 });
 
-// stopRecordButton.addEventListener('click', () => {
-//     if (!mediaRecorder) {
-//         console.error("MediaRecorder is not initialized.");
-//         return;
-//     }
-
-//     mediaRecorder.stop();
-//     startRecordButton.disabled = false;
-//     stopRecordButton.disabled = true;
-// });
+customPlayButton.addEventListener("click", () => {
+    if (!audioContext) {
+        console.error("AudioContext not initialized");
+        return;
+    }
+    
+    const audioUrl = audioPlayback.src;
+    const audioElement = new Audio(audioUrl);
+    const source = audioContext.createMediaElementSource(audioElement);
+    source.connect(audioContext.destination);
+    
+    audioElement.play();
+    });
 
 // Function to convert an AudioBuffer to a WAV Blob
 export function audioBufferToWavBlob(buffer) {

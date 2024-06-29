@@ -1,6 +1,6 @@
 :root {
     --teal: #00fff2;
-    --purple: #52489cbe;
+    --purple: #52489c;
     --yellow: #fffd82;
     --pink: #de4045;
     --brown: #524632;
@@ -406,7 +406,7 @@ dialog::backdrop {
     flex-direction: column;
     gap: 20px;
     border-radius: 15px;
-    background: #333;
+    background: var(--yellow);
 }
 
  .sampler {
@@ -456,3 +456,63 @@ dialog::backdrop {
     color: #333;
     background: var(--teal);
 }
+
+/*****************************************************
+    Audio Element
+*****************************************************/
+
+audio {
+   padding: 0;
+   border-radius: 5px;
+   background-color: var(--yellow);
+   border: 1px solid #000;
+    border-radius: 5px;
+    color: #000;
+
+}
+
+audio::-webkit-media-controls-panel {
+    background-color: var(--yellow);
+    color: #000;
+}
+
+audio::-webkit-media-controls-play-button {
+    background-color: transparent;
+    color: #000;
+}
+
+audio::-webkit-media-controls-timeline {
+    background-color: transparent;
+    color: #000;
+}
+
+audio::-webkit-media-controls-current-time-display {
+    background-color: transparent;
+    color: #000;
+}
+
+audio::-webkit-media-controls-time-remaining-display {
+    background-color: transparent;
+    color: #000;
+}
+
+audio::-webkit-media-controls-timeline {
+    background-color: transparent;
+    color: #3d72ce;
+}
+
+audio::-webkit-media-controls-volume-slider {
+    display: none;
+}
+
+audio::-webkit-media-controls-mute-button {
+    display: none;
+}
+
+audio::-internal-media-controls-overflow-button {
+    display: none;
+}
+
+
+
+

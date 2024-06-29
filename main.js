@@ -28,3 +28,4 @@ startButton.addEventListener("click", async () => {
 
   initializeRecorder(audioContext);
 });
+
