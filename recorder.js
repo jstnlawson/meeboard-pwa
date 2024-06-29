@@ -74,14 +74,6 @@ export const initializeRecorder = async (context) => {
             }
         };
 
-        mediaRecorder.onstop = () => {
-            console.log("Recording stopped");
-            // const audioBlob = new Blob(audioChunks, { type: mimeType });
-            // const audioUrl = URL.createObjectURL(audioBlob);
-            // audioPlayback.src = audioUrl;
-            // audioChunks = [];
-        };
-
         startRecordButton.disabled = false;
     } catch (error) {
         console.error("Error initializing recorder:", error);
@@ -185,11 +177,11 @@ stopRecordButton.addEventListener('click', () => {
         }
 
         audioChunks = [];
-        if (mediaRecorder.stream) {
-            mediaRecorder.stream.getTracks().forEach(track => track.stop());
-        }
+        startRecordButton.disabled = false;
 
-    
+        // if (mediaRecorder.stream) {
+        //     mediaRecorder.stream.getTracks().forEach(track => track.stop());
+        // }   
     };
 });
 
