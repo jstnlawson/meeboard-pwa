@@ -11,10 +11,12 @@
       <button data-start-app class="temp-btn" id="startApp">Start App</button>
     </dialog>
     <dialog data-modal class="modal">
-      <button class="temp-btn" id="startRecord">Start Recording</button>
-      <button class="temp-btn" id="stopRecord" disabled>Stop Recording</button>
+      <div class="sampler">
+      <button class="record-btn" id="startRecord">rec</button>
+      <button class="stop-btn" id="stopRecord" disabled>stop</button>
       <audio id="audioPlayback" controls></audio>
-      <button data-close-modal class="close-modal-btn">Close</button>
+    </div>
+      <button data-close-modal class="close-modal-btn">close</button>
     </dialog>
 
     <div class="meeboard">
@@ -60,8 +62,8 @@
             </div>          
           </div>
         </div>
-          <div class="record-btn">
-            <button data-open-modal class="record-btn__inner">rec</button>
+          <div class="sample-btn">
+            <button data-open-modal class="sample-btn__inner">add sample</button>
           </div>
         </div>
           <!-- <div class="control-panel__slider">
