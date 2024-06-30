@@ -408,7 +408,7 @@ dialog::backdrop {
  ****************************************************************/
 
 .modal {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -649,11 +649,11 @@ audio::-internal-media-controls-overflow-button {
     box-sizing: border-box;
 }
 
-.vu-meter__needle.is-spinning {
+.vu-meter__needle {
     animation: needle-move 5s ease-out infinite alternate;
 }
 
-.vu-meter__needle:not(.is-spinning) {
+.vu-meter__needle {
     animation: needle-return 1s ease-out forwards;
 }
 

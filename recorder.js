@@ -1,13 +1,16 @@
 const openButton = document.querySelector("[data-open-modal]");
 const closeButton = document.querySelector("[data-close-modal]");
 const modal = document.querySelector("[data-modal]");
+const recordModal = document.getElementById("recordModal");
 
 openButton.addEventListener("click", () => {
   modal.showModal();
+  recordModal.style.display = 'flex';
 });
 
 closeButton.addEventListener("click", () => {
   modal.close();
+    recordModal.style.display = 'none';
 });
 
 const startRecordButton = document.getElementById("startRecord");
