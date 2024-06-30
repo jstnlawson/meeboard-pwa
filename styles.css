@@ -6,7 +6,8 @@
     --brown: #524632;
 }
 
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
@@ -203,14 +204,19 @@ body, html {
     justify-content: center;
     align-items: center;
     -webkit-appearance: none;
-    -moz-appearance: none; /* For Firefox */
-    appearance: none; /* Standard */
+    -moz-appearance: none;
+    /* For Firefox */
+    appearance: none;
+    /* Standard */
     width: 100%;
     height: 100%;
-    writing-mode: vertical-lr; /* Make the slider vertical */
+    writing-mode: vertical-lr;
+    /* Make the slider vertical */
     transform: rotate(180deg);
-    border-left: 2px solid #000; /* Change border to left */
-    border-right: 2px solid #000; /* Change border to right */
+    border-left: 2px solid #000;
+    /* Change border to left */
+    border-right: 2px solid #000;
+    /* Change border to right */
     /* border-top: 2px solid #000;
     border-bottom: 2px solid #000; */
     background: linear-gradient(to bottom, #333 0, #777 50%, #333);
@@ -230,11 +236,11 @@ body, html {
     cursor: grab;
     background: repeating-linear-gradient(to bottom,
             #000 2px, #777 4px);
-            box-shadow:
-            inset -1.5px 1.5px 1px #888,
-            inset 2px -2px 1px #000,
-            -2px 2px 4px #000;
-            box-sizing: border-box;
+    box-shadow:
+        inset -1.5px 1.5px 1px #888,
+        inset 2px -2px 1px #000,
+        -2px 2px 4px #000;
+    box-sizing: border-box;
 }
 
 .slider::-webkit-slider-thumb:active {
@@ -248,11 +254,11 @@ body, html {
     cursor: grab;
     background: repeating-linear-gradient(to bottom,
             #000 2px, #777 4px);
-            box-shadow:
-            inset -1.5px 1.5px 1px #888,
-            inset 2px -2px 1px #000,
-            -2px 2px 4px #000;
-            box-sizing: border-box;
+    box-shadow:
+        inset -1.5px 1.5px 1px #888,
+        inset 2px -2px 1px #000,
+        -2px 2px 4px #000;
+    box-sizing: border-box;
 }
 
 .slider::-moz-range-thumb:active {
@@ -268,7 +274,8 @@ body, html {
     cursor: grabbing;
 }
 
-@media (hover: none), (pointer: coarse){
+@media (hover: none),
+(pointer: coarse) {
     .slider::-webkit-slider-thumb {
         width: 5vw;
     }
@@ -283,6 +290,7 @@ body, html {
     padding: 10px;
     font-size: 16px;
 }
+
 audio {
     margin-top: 20px;
     display: block;
@@ -337,8 +345,8 @@ dialog::backdrop {
     align-items: center;
     gap: 2px;
 }
-  
-  .select-btn {
+
+.select-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -352,16 +360,16 @@ dialog::backdrop {
     background: radial-gradient(circle, #000 0%, #888 100%);
     box-sizing: border-box;
     z-index: 1;
-  }
+}
 
-    .select-btn:active {
-        /* background: radial-gradient(circle, #000 0%, #555 100%); */
-        border: 5px solid #000;
-        color: #ddd;
-        font-size: 9px;
-    }
+.select-btn:active {
+    /* background: radial-gradient(circle, #000 0%, #555 100%); */
+    border: 5px solid #000;
+    color: #ddd;
+    font-size: 9px;
+}
 
-  .screen-bg {
+.screen-bg {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -374,32 +382,32 @@ dialog::backdrop {
     border-radius: 3px;
     padding: 0 2px;
     box-sizing: border-box;
-  }
+}
 
-  .sound-select_screen {
+.sound-select_screen {
     appearance: none;
     width: fit-content;
     /* height: 95%; */
     padding: 5px 10px;
     background-image: linear-gradient(to right, #333 0%, #666 50%, #333 100%);
-    color:  #00fff2a1; 
+    color: #00fff2a1;
     font-family: monospace;
     border: none;
     border-radius: 1.5px;
     box-sizing: border-box;
-  }
+}
 
-  .sound-select_screen option:checked {
+.sound-select_screen option:checked {
     background: #00fff2;
     color: #000;
     /* color: #fff; */
-  }
+}
 
 /****************************************************************
     Sampler Modal
  ****************************************************************/
 
- .modal {
+.modal {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -411,7 +419,7 @@ dialog::backdrop {
     /* z-index: 1; */
 }
 
- .sampler {
+.sampler {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -431,7 +439,9 @@ dialog::backdrop {
     gap: 20px;
 }
 
-.record-btn, .stop-btn, .play-btn {
+.record-btn,
+.stop-btn,
+.play-btn {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -464,10 +474,10 @@ dialog::backdrop {
 *****************************************************/
 
 audio {
-   padding: 0;
-   border-radius: 5px;
-   background-color: var(--yellow);
-   border: 1px solid #000;
+    padding: 0;
+    border-radius: 5px;
+    background-color: var(--yellow);
+    border: 1px solid #000;
     border-radius: 5px;
     color: #000;
     display: none;
@@ -548,10 +558,10 @@ audio::-internal-media-controls-overflow-button {
 }
 
 .vu-meter__needle {
-    width: 1px;
+    width: 2px;
     height: 80px;
     background: #000000;
-    filter: drop-shadow(2px -2px 4px rgba(0, 0, 0, .6));
+    filter: drop-shadow(1px -2px 4px rgba(0, 0, 0, .6));
     transform: rotate(-45deg);
     transform-origin: center bottom;
 }
@@ -580,27 +590,29 @@ audio::-internal-media-controls-overflow-button {
 .vu-meter__arch--color {
     position: absolute;
     top: -30px;
-    left: 0px;
-  width: 100%;
-  height: 100px; /* Adjust the height as needed */
-  color: #bdbb98;
-  background: linear-gradient(to right, #bdbb98 10%, #3b39a7 60%, #a93428 80%, #bdbb98 90%);
-  overflow: hidden;
-  border-radius: 50% 50% 0 0;
-  line-height: 15px;
+    left: calc(50% - 10px);
+    transform: translateX(-50%);
+    width: 90%;
+    height: 100px;
+    /* Adjust the height as needed */
+    color: #bdbb98;
+    background: linear-gradient(to right, #bdbb98 5%, var(--purple) 50%, var(--pink) 80%, #bdbb98 95%);
+    overflow: hidden;
+    border-radius: 50% 50% 0 0;
+    /* line-height: 15px; */
 }
 
 .vu_meter__arch--overlap {
     position: absolute;
     top: -15px;
-    left: 1.5vw;
-  /* width: 14vw; */
-  width: 80%;
-  height: 100px; 
-  background: linear-gradient(to right, #bdbb98 0%, #e8e7c9 50%, #bdbb98 100%);
-  background: #fff;
-  overflow: hidden;
-  border-radius: 50% 50% 0 0;
+    left: calc(50% - 10px);
+    transform: translateX(-50%);
+    width: 80%;
+    height: 100px;
+    background: linear-gradient(to right, #bdbb98 0%, #e8e7c9 50%, #bdbb98 100%);
+    /* background: #fff; */
+    overflow: hidden;
+    border-radius: 50% 50% 0 0;
 }
 
 .vu-meter__text {
@@ -675,10 +687,8 @@ audio::-internal-media-controls-overflow-button {
     from {
         transform: rotate(-5deg);
     }
+
     to {
         transform: rotate(-45deg);
     }
 }
-
-
-
