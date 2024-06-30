@@ -4,13 +4,13 @@ import {
   setup,
   playNote,
   stopNote,
-} from "./synth.js";
+} from "./components/synth/synth.js";
 
 import { 
   initializeRecorder,
   // audioBufferToWavBlob,
   // writeString,
-} from "./recorder.js";
+} from "./components/recorder/recorder.js";
 
 const startModal = document.querySelector("[data-modal-start]");
 const startButton = document.querySelector("[data-start-app]");

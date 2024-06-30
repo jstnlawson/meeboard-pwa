@@ -1,0 +1,299 @@
+/*****************************************************
+    Record Modal
+*****************************************************/
+
+/*****************************************************
+    Record Modal
+*****************************************************/
+
+
+
+/****************************************************************
+    Sampler Modal
+ ****************************************************************/
+
+ .modal {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    /* position: relative; */
+    gap: 20px;
+    border-radius: 15px;
+    background: var(--yellow);
+    /* z-index: 1; */
+}
+
+.sampler {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    background: linear-gradient(to right, #777, #ddd, #fff, #ddd, #777);
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.sampler-btns {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.record-btn,
+.stop-btn,
+.play-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55px;
+    width: 55px;
+    cursor: pointer;
+    border: 1px solid #000;
+    border-radius: 50%;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.record-btn {
+    color: #fff;
+    background: var(--pink);
+}
+
+.stop-btn {
+    color: #fff;
+    background: var(--brown);
+}
+
+.play-btn {
+    color: #333;
+    background: var(--teal);
+}
+
+/*****************************************************
+    Audio Element
+*****************************************************/
+
+audio {
+    padding: 0;
+    border-radius: 5px;
+    background-color: var(--yellow);
+    border: 1px solid #000;
+    border-radius: 5px;
+    color: #000;
+    display: none;
+
+}
+
+audio::-webkit-media-controls-panel {
+    background-color: var(--yellow);
+    color: #000;
+}
+
+audio::-webkit-media-controls-play-button {
+    background-color: transparent;
+    color: #000;
+}
+
+audio::-webkit-media-controls-timeline {
+    background-color: transparent;
+    color: #000;
+}
+
+audio::-webkit-media-controls-current-time-display {
+    background-color: transparent;
+    color: #000;
+}
+
+audio::-webkit-media-controls-time-remaining-display {
+    background-color: transparent;
+    color: #000;
+}
+
+audio::-webkit-media-controls-timeline {
+    background-color: transparent;
+    color: #3d72ce;
+}
+
+audio::-webkit-media-controls-volume-slider {
+    display: none;
+}
+
+audio::-webkit-media-controls-mute-button {
+    display: none;
+}
+
+audio::-internal-media-controls-overflow-button {
+    display: none;
+}
+
+/**********************************************************************************
+* VU Meter
+**********************************************************************************/
+
+.vu-meter {
+    width: 150px;
+    width: 100%;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.vu-meter__background {
+    background: linear-gradient(to right, #bdbb98 0%, #e8e7c9 50%, #bdbb98 100%);
+    box-shadow: inset 0 0 8px 1px rgba(0, 0, 0, .5);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.vu-meter__needle-container {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    /* transform: translateX(0%); */
+    width: 100%;
+    z-index: 2;
+}
+
+.vu-meter__needle {
+    width: 2px;
+    height: 80px;
+    background: #000000;
+    filter: drop-shadow(1px -2px 4px rgba(0, 0, 0, .6));
+    transform: rotate(-45deg);
+    transform-origin: center bottom;
+}
+
+.vu-meter__text-container {
+    position: absolute;
+    bottom: 25%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+}
+
+.vu-meter__arch-container {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    left: calc(50% + 10px);
+    transform: translateX(-50%);
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+}
+
+.vu-meter__arch--color {
+    position: absolute;
+    top: -30px;
+    left: calc(50% - 10px);
+    transform: translateX(-50%);
+    width: 90%;
+    height: 100px;
+    /* Adjust the height as needed */
+    color: #bdbb98;
+    background: linear-gradient(to right, #bdbb98 5%, var(--purple) 50%, var(--pink) 80%, #bdbb98 95%);
+    overflow: hidden;
+    border-radius: 50% 50% 0 0;
+    /* line-height: 15px; */
+}
+
+.vu_meter__arch--overlap {
+    position: absolute;
+    top: -15px;
+    left: calc(50% - 10px);
+    transform: translateX(-50%);
+    width: 80%;
+    height: 100px;
+    background: linear-gradient(to right, #bdbb98 0%, #e8e7c9 50%, #bdbb98 100%);
+    /* background: #fff; */
+    overflow: hidden;
+    border-radius: 50% 50% 0 0;
+}
+
+.vu-meter__text {
+    font-size: 1.25vw;
+    color: #604736;
+    font-weight: 600;
+    padding: 0.5vw;
+    border-radius: 5px;
+}
+
+.vu-meter__black-layer {
+    position: absolute;
+    height: calc(100% - 30px);
+    width: calc(100% - 20px);
+    border-top: solid 15px #444;
+    border-right: solid 10px #333;
+    border-bottom: solid 15px #222;
+    border-left: solid 10px #333;
+    z-index: 3;
+}
+
+.vu-meter__silver-layer {
+    position: inherit;
+    width: 100%;
+    height: 100%;
+    border-top: solid 10px #c3c2c2;
+    border-right: solid 5px #909090;
+    border-bottom: solid 10px #777777;
+    border-left: solid 5px #909090;
+    margin-left: auto;
+    margin-right: auto;
+    /* margin-top: .75%; */
+    z-index: 4;
+    box-sizing: border-box;
+}
+
+.vu-meter__needle {
+    animation: needle-move 5s ease-out infinite alternate;
+}
+
+.vu-meter__needle {
+    animation: needle-return 1s ease-out forwards;
+}
+
+@keyframes needle-move {
+    from {
+        transform: rotate(-15deg);
+    }
+
+    20% {
+        transform: rotate(0deg);
+    }
+
+    40% {
+        transform: rotate(12deg);
+    }
+
+    60% {
+        transform: rotate(5deg);
+    }
+
+    80% {
+        transform: rotate(10deg);
+    }
+
+    to {
+        transform: rotate(-5deg);
+    }
+}
+
+@keyframes needle-return {
+    from {
+        transform: rotate(-5deg);
+    }
+
+    to {
+        transform: rotate(-45deg);
+    }
+}
