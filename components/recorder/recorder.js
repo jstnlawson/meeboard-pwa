@@ -5,12 +5,12 @@ const recordModal = document.getElementById("recordModal");
 
 openButton.addEventListener("click", () => {
   modal.showModal();
-  recordModal.style.display = 'flex';
+  recordModal.style.display = "flex";
 });
 
 closeButton.addEventListener("click", () => {
   modal.close();
-    recordModal.style.display = 'none';
+  recordModal.style.display = "none";
 });
 
 const startRecordButton = document.getElementById("startRecord");
@@ -75,12 +75,15 @@ export const initializeRecorder = async (context) => {
 
 let lastRms = 0;
 let isUpdatingNeedle = false;
+const minAngle = -45;
+const maxAngle = 45;
+let needleRotations = [];
 
 function updateNeedle() {
   if (!isUpdatingNeedle) return;
 
   analyser.getByteTimeDomainData(dataArray);
-  
+
   let sum = 0;
   for (let i = 0; i < dataArray.length; i++) {
     const value = dataArray[i] / 128 - 1;
@@ -89,32 +92,41 @@ function updateNeedle() {
   const rms = Math.sqrt(sum / dataArray.length);
 
   // Apply smoothing
-  const smoothingFactor = 0.1;
-  const smoothedRms = (smoothingFactor * rms) + ((1 - smoothingFactor) * lastRms);
+  const smoothingFactor = 0.2;
+  const smoothedRms = smoothingFactor * rms + (1 - smoothingFactor) * lastRms;
   lastRms = smoothedRms;
 
   // Normalize to the needle rotation range
-  const minAngle = -45;
-  const maxAngle = 45;
-  const needleRotation = (smoothedRms * (maxAngle - minAngle)) + minAngle;
+
+  const needleRotation = smoothedRms * (maxAngle - minAngle) + minAngle;
 
   // Set inline style
-  const needleElement = document.querySelector('.vu-meter__needle');
+  const needleElement = document.querySelector(".vu-meter__needle");
   needleElement.style.transform = `rotate(${needleRotation}deg)`;
 
   requestAnimationFrame(updateNeedle);
 }
 
 function resetNeedleAngle() {
-  const needleElement = document.querySelector('.vu-meter__needle');
-  needleElement.style.transform = `rotate(-45deg)`;
+  const needleElement = document.querySelector(".vu-meter__needle");
+  needleElement.style.transform = minAngle; // Reset to min angle
 }
 
 startRecordButton.addEventListener("click", () => {
+  const vuMeterBackground = document.querySelector(".vu-meter__background");
+  const vuArchOverlap = document.querySelector(".vu_meter__arch--overlap");
+
   if (!mediaRecorder) {
     console.error("MediaRecorder is not initialized.");
     return;
   }
+
+  vuMeterBackground.classList.add("vu-meter__background-recording");
+  vuArchOverlap.classList.add("vu_meter__arch--overlap-recording");
+
+   // Additional logging for debugging
+   console.log("Classes added to vuMeterBackground:", vuMeterBackground.classList);
+   console.log("Classes added to vuArchOverlap:", vuArchOverlap.classList);
 
   audioChunks = [];
   mediaRecorder.start();
@@ -126,15 +138,21 @@ startRecordButton.addEventListener("click", () => {
 });
 
 stopRecordButton.addEventListener("click", () => {
+  const vuMeterBackground = document.querySelector(".vu-meter__background");
+  const vuArchOverlap = document.querySelector(".vu_meter__arch--overlap");
+
   if (!mediaRecorder) {
     console.error("MediaRecorder is not initialized.");
     return;
   }
-  
+
+  vuMeterBackground.classList.remove("vu-meter__background-recording");
+  vuArchOverlap.classList.remove("vu_meter__arch--overlap-recording");
+
   mediaRecorder.stop();
   console.log("Recording stopped in listener");
   isUpdatingNeedle = false;
-  resetNeedleAngle();  
+  resetNeedleAngle();
 
   mediaRecorder.onstop = async () => {
     console.log("Recording stopped in async onstop");
@@ -204,31 +222,29 @@ stopRecordButton.addEventListener("click", () => {
 
     audioChunks = [];
     startRecordButton.disabled = false;
-    customPlayButton.disabled = false;  
+    // customPlayButton.disabled = false;
   };
 });
 
-customPlayButton.addEventListener("click", () => {
-    if (!audioContext) {
-        console.error("AudioContext not initialized");
-        return;
-    }
-    
-    const audioUrl = audioPlayback.src;
-    const audioElement = new Audio(audioUrl);
-    const source = audioContext.createMediaElementSource(audioElement);
-    source.connect(audioContext.destination);
-    
-    audioElement.play();
+// customPlayButton.addEventListener("click", () => {
+//   if (!audioContext) {
+//     console.error("AudioContext not initialized");
+//     return;
+//   }
 
-    isUpdatingNeedle = true;
-    updateNeedle();
+//   const audioUrl = audioPlayback.src;
+//   const audioElement = new Audio(audioUrl);
+//   const source = audioContext.createMediaElementSource(audioElement);
+//   source.connect(audioContext.destination);
 
-    audioElement.onended = () => {
-      isUpdatingNeedle = false; // Stop updating the needle when playback ends
-      resetNeedleAngle(); // Reset the needle angle after playback ends
-    };
-    });
+//   audioElement.play();
+
+//   // Trigger click event on the media element's timeline
+//   const timelineControl = audioPlayback.shadowRoot.querySelector('input[type="range"]');
+//   if (timelineControl) {
+//       timelineControl.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+//   }
+// });
 
 // Function to convert an AudioBuffer to a WAV Blob
 export function audioBufferToWavBlob(buffer) {

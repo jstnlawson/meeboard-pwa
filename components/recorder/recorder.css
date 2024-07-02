@@ -20,7 +20,7 @@
     /* position: relative; */
     gap: 20px;
     border-radius: 15px;
-    background: var(--yellow);
+    background: linear-gradient(to right, #333, #999, #333);
     /* z-index: 1; */
 }
 
@@ -55,7 +55,7 @@
     cursor: pointer;
     border: 1px solid #000;
     border-radius: 50%;
-    font-size: 14px;
+    font-size: 16px;
     box-sizing: border-box;
 }
 
@@ -79,44 +79,79 @@
 *****************************************************/
 
 audio {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    height: 60px;
     padding: 0;
     border-radius: 5px;
-    background-color: var(--yellow);
-    border: 1px solid #000;
+    /* background-color: var(--yellow);
+    background: linear-gradient(to right, #777, #ddd, #fff, #ddd, #777);
+    background: transparent; */
+    /* border: 1px solid #000;
     border-radius: 5px;
-    color: #000;
-    display: none;
+    border: none;
+    color: #fff; */
+    /* display: none; */
 
+}
+
+audio::-webkit-media-controls-enclosure {
+    background-color: var(--yellow);
+    background: linear-gradient(to right, #777, #ddd, #fff, #ddd, #777);
+    border: none;
+    color: #000;
 }
 
 audio::-webkit-media-controls-panel {
-    background-color: var(--yellow);
-    color: #000;
+    /* background-color: var(--yellow);
+    background: linear-gradient(to right, #777, #ddd, #fff, #ddd, #777); */
+border: none;
+    /* color: #000; */
+    height: 100%;
+    width: 100%;
 }
 
 audio::-webkit-media-controls-play-button {
-    background-color: transparent;
-    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* height: fit-content;
+    width: 55px; */
+    cursor: pointer;
+    /* border: 10px solid #000; */
+    border-radius: 50%;
+    /* font-size: 14px; */
+    /* box-sizing: border-box; */
+    /* color: var(--teal); */
+    background-color: var(--teal);
 }
 
 audio::-webkit-media-controls-timeline {
     background-color: transparent;
-    color: #000;
+    /* color: #000; */
 }
 
 audio::-webkit-media-controls-current-time-display {
     background-color: transparent;
-    color: #000;
+    /* color: #000; */
+    /* display: none; */
 }
 
 audio::-webkit-media-controls-time-remaining-display {
     background-color: transparent;
-    color: #000;
+    /* color: #000; */
+    /* display: none; */
 }
 
-audio::-webkit-media-controls-timeline {
+/* audio::-webkit-media-controls-timeline {
     background-color: transparent;
     color: #3d72ce;
+} */
+
+audio::-webkit-media-controls-volume-control-container {
+    display: none;
 }
 
 audio::-webkit-media-controls-volume-slider {
@@ -129,6 +164,8 @@ audio::-webkit-media-controls-mute-button {
 
 audio::-internal-media-controls-overflow-button {
     display: none;
+    appearance: none;
+    color: transparent;
 }
 
 /**********************************************************************************
@@ -167,7 +204,7 @@ audio::-internal-media-controls-overflow-button {
     height: 80px;
     background: #000000;
     filter: drop-shadow(1px -2px 4px rgba(0, 0, 0, .6));
-    transform: rotate(-45deg);
+    transform: rotate(-55deg);
     transform-origin: center bottom;
 }
 
@@ -201,7 +238,7 @@ audio::-internal-media-controls-overflow-button {
     height: 100px;
     /* Adjust the height as needed */
     color: #bdbb98;
-    background: linear-gradient(to right, #bdbb98 5%, var(--purple) 50%, var(--pink) 80%, #bdbb98 95%);
+    background: linear-gradient(to right, transparent 5%, var(--purple) 50%, var(--pink) 80%, transparent 95%);
     overflow: hidden;
     border-radius: 50% 50% 0 0;
     /* line-height: 15px; */
@@ -215,7 +252,6 @@ audio::-internal-media-controls-overflow-button {
     width: 80%;
     height: 100px;
     background: linear-gradient(to right, #bdbb98 0%, #e8e7c9 50%, #bdbb98 100%);
-    /* background: #fff; */
     overflow: hidden;
     border-radius: 50% 50% 0 0;
 }
@@ -252,6 +288,14 @@ audio::-internal-media-controls-overflow-button {
     /* margin-top: .75%; */
     z-index: 4;
     box-sizing: border-box;
+}
+
+.vu-meter__background-recording {
+    background: linear-gradient(to right, #bdbb98 0%, #ffffff 50%, #bdbb98 100%);
+}
+
+.vu_meter__arch--overlap-recording {
+    background: linear-gradient(to right, #bdbb98 0%, #ffffff 50%, #bdbb98 100%);
 }
 
 /* .vu-meter__needle {
