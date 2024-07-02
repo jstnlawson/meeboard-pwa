@@ -21,12 +21,22 @@ const audioPlayback = document.getElementById("audioPlayback");
 let mediaRecorder;
 let audioChunks = [];
 let audioContext;
+let analyser;
+let dataArray;
 
 // Request microphone access
 export const initializeRecorder = async (context) => {
   audioContext = context;
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+    analyser = audioContext.createAnalyser();
+    analyser.fftSize = 256;
+    const bufferLength = analyser.frequencyBinCount;
+    dataArray = new Uint8Array(bufferLength);
+
+    const source = audioContext.createMediaStreamSource(stream);
+    source.connect(analyser);
 
     let mimeType;
     if (MediaRecorder.isTypeSupported("audio/webm")) {
@@ -63,6 +73,43 @@ export const initializeRecorder = async (context) => {
   }
 };
 
+let lastRms = 0;
+let isUpdatingNeedle = false;
+
+function updateNeedle() {
+  if (!isUpdatingNeedle) return;
+
+  analyser.getByteTimeDomainData(dataArray);
+  
+  let sum = 0;
+  for (let i = 0; i < dataArray.length; i++) {
+    const value = dataArray[i] / 128 - 1;
+    sum += value * value;
+  }
+  const rms = Math.sqrt(sum / dataArray.length);
+
+  // Apply smoothing
+  const smoothingFactor = 0.1;
+  const smoothedRms = (smoothingFactor * rms) + ((1 - smoothingFactor) * lastRms);
+  lastRms = smoothedRms;
+
+  // Normalize to the needle rotation range
+  const minAngle = -45;
+  const maxAngle = 45;
+  const needleRotation = (smoothedRms * (maxAngle - minAngle)) + minAngle;
+
+  // Set inline style
+  const needleElement = document.querySelector('.vu-meter__needle');
+  needleElement.style.transform = `rotate(${needleRotation}deg)`;
+
+  requestAnimationFrame(updateNeedle);
+}
+
+function resetNeedleAngle() {
+  const needleElement = document.querySelector('.vu-meter__needle');
+  needleElement.style.transform = `rotate(-45deg)`;
+}
+
 startRecordButton.addEventListener("click", () => {
   if (!mediaRecorder) {
     console.error("MediaRecorder is not initialized.");
@@ -74,6 +121,8 @@ startRecordButton.addEventListener("click", () => {
   console.log("Recording started");
   startRecordButton.disabled = true;
   stopRecordButton.disabled = false;
+  isUpdatingNeedle = true;
+  updateNeedle();
 });
 
 stopRecordButton.addEventListener("click", () => {
@@ -81,9 +130,11 @@ stopRecordButton.addEventListener("click", () => {
     console.error("MediaRecorder is not initialized.");
     return;
   }
-
+  
   mediaRecorder.stop();
   console.log("Recording stopped in listener");
+  isUpdatingNeedle = false;
+  resetNeedleAngle();  
 
   mediaRecorder.onstop = async () => {
     console.log("Recording stopped in async onstop");
@@ -153,7 +204,7 @@ stopRecordButton.addEventListener("click", () => {
 
     audioChunks = [];
     startRecordButton.disabled = false;
-    customPlayButton.disabled = false;
+    customPlayButton.disabled = false;  
   };
 });
 
@@ -169,6 +220,14 @@ customPlayButton.addEventListener("click", () => {
     source.connect(audioContext.destination);
     
     audioElement.play();
+
+    isUpdatingNeedle = true;
+    updateNeedle();
+
+    audioElement.onended = () => {
+      isUpdatingNeedle = false; // Stop updating the needle when playback ends
+      resetNeedleAngle(); // Reset the needle angle after playback ends
+    };
     });
 
 // Function to convert an AudioBuffer to a WAV Blob

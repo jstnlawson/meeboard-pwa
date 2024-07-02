@@ -254,7 +254,7 @@ audio::-internal-media-controls-overflow-button {
     box-sizing: border-box;
 }
 
-.vu-meter__needle {
+/* .vu-meter__needle {
     animation: needle-move 5s ease-out infinite alternate;
 }
 
@@ -294,6 +294,6 @@ audio::-internal-media-controls-overflow-button {
     }
 
     to {
-        transform: rotate(-45deg);
+        transform: rotate(-65deg);
     }
-}
+} */
