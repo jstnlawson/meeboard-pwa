@@ -17,6 +17,8 @@ const startRecordButton = document.getElementById("startRecord");
 const stopRecordButton = document.getElementById("stopRecord");
 const customPlayButton = document.getElementById("playRecording");
 const audioPlayback = document.getElementById("audioPlayback");
+const recordLight = document.getElementById("recordLight");
+const recordText = document.getElementById("recordText");
 
 let mediaRecorder;
 let audioChunks = [];
@@ -123,6 +125,8 @@ startRecordButton.addEventListener("click", () => {
 
   vuMeterBackground.classList.add("vu-meter__background-recording");
   vuArchOverlap.classList.add("vu_meter__arch--overlap-recording");
+  recordLight.classList.add("record-ui__light--on");
+  recordText.classList.add("record-ui__text--on");
 
    // Additional logging for debugging
    console.log("Classes added to vuMeterBackground:", vuMeterBackground.classList);
@@ -148,6 +152,8 @@ stopRecordButton.addEventListener("click", () => {
 
   vuMeterBackground.classList.remove("vu-meter__background-recording");
   vuArchOverlap.classList.remove("vu_meter__arch--overlap-recording");
+  recordLight.classList.remove("record-ui__light--on");
+  recordText.classList.remove("record-ui__text--on");
 
   mediaRecorder.stop();
   console.log("Recording stopped in listener");
