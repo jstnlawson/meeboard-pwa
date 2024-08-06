@@ -18,7 +18,7 @@
     align-items: center;
     flex-direction: column;
     /* position: relative; */
-    gap: 20px;
+    gap: 10px;
     border-radius: 15px;
     background: linear-gradient(to right, #333, #999, #333);
     /* z-index: 1; */

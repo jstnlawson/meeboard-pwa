@@ -26,7 +26,7 @@
   </head>
   <body>
     <dialog data-modal-start class="start-modal">
-      <button data-start-app class="temp-btn" id="startApp">Start App</button>
+      <button data-start-app class="temp-btn" id="startApp">Load Meeboard</button>
     </dialog>
     <dialog data-modal class="modal" id="recordModal">
       <div class="vu-meter">
@@ -57,8 +57,13 @@
           <!-- <button class="play-btn" id="playRecording" disabled>play</button> -->
         </div>
         <audio id="audioPlayback" controls></audio>
-      </div>
-      <button data-close-modal class="close-modal-btn">close</button>
+
+        <div class="temp-btn-box" style="display: flex;">
+          <button data-close-modal class="close-modal-btn">close</button>
+          <button data-save-sample class="save-sample-btn" id="useSampleButton">use sample</button>
+        </div>
+
+      </div>   
     </dialog>
 
     <div class="meeboard">
@@ -103,14 +108,15 @@
                   <option value="square" selected>square</option>
                   <option value="sawtooth">sawtooth</option>
                   <option value="triangle">triangle</option>
-                  <option value="custom">custom</option>
+                  <!-- <option value="custom">custom</option> -->
+                  <option value="sample">sample</option>
                 </select>
               </div>
             </div>
           </div>
           <div class="sample-btn">
             <button data-open-modal class="sample-btn__inner">
-              add sample
+              record sample
             </button>
           </div>
         </div>

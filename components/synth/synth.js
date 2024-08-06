@@ -7,13 +7,13 @@ const wavePicker = document.querySelector("select[name='waveform']");
 const volumeControl = document.querySelector("input[name='volume']");
 
 let noteFreq = [];
-let customWaveform = null;
+export let customWaveform;
 let sineTerms = null;
 let cosineTerms = null;
 
 var select = document.getElementById('waveformSelect');
 var selectPrev = document.getElementById('selectPrev');
-  var selectNext = document.getElementById('selectNext');
+var selectNext = document.getElementById('selectNext');
 
   // Event listener for previous button
   selectPrev.addEventListener('click', function() {
@@ -152,22 +152,55 @@ export function assignFrequenciesToKeys() {
     });
 }
 
-export function playNote(freq) {
+export function updateCustomWaveform(newWaveform) {
+    customWaveform = newWaveform;
+    console.log("Custom waveform updated", customWaveform);
+  }
+
+  export function playNote(freq) {
     const osc = audioContext.createOscillator();
     osc.connect(mainGainNode);
-
+  
     const type = wavePicker.options[wavePicker.selectedIndex].value;
-    if (type === "custom") {
-        osc.setPeriodicWave(customWaveform);
+    if (type === "sample" && customWaveform) {
+      // Use a BufferSourceNode for the sample
+      const source = audioContext.createBufferSource();
+      source.buffer = customWaveform; // Assuming customWaveform is an AudioBuffer
+      source.connect(mainGainNode);
+      source.start();
     } else {
+      // For built-in waveforms
+      if (type === "custom") {
+        osc.setPeriodicWave(customWaveform);
+      } else {
         osc.type = type;
+      }
+      osc.frequency.value = freq;
+      osc.start();
     }
-
-    osc.frequency.value = freq;
-    osc.start();
-
+  
     return osc;
-}
+  }
+
+// export function playNote(freq) {
+//     const osc = audioContext.createOscillator();
+//     osc.connect(mainGainNode);
+
+//     const type = wavePicker.options[wavePicker.selectedIndex].value;
+//     if (type === "custom") {
+//         osc.setPeriodicWave(customWaveform);
+//         console.log("Custom waveform set to:", customWaveform);
+//         console.log("Custom waveform is playing");
+//     } else {
+//         osc.type = type;
+//         console.log("Waveform set to:", osc.type);
+//     }
+
+//     osc.frequency.value = freq;
+//     osc.start();
+
+//     return osc;
+// }
 
 export function stopNote(osc) {
     osc.stop();

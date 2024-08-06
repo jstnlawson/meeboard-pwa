@@ -1,3 +1,5 @@
+import { updateCustomWaveform } from "../synth/synth.js";
+
 const openButton = document.querySelector("[data-open-modal]");
 const closeButton = document.querySelector("[data-close-modal]");
 const modal = document.querySelector("[data-modal]");
@@ -15,7 +17,6 @@ closeButton.addEventListener("click", () => {
 
 const startRecordButton = document.getElementById("startRecord");
 const stopRecordButton = document.getElementById("stopRecord");
-const customPlayButton = document.getElementById("playRecording");
 const audioPlayback = document.getElementById("audioPlayback");
 const recordLight = document.getElementById("recordLight");
 const recordText = document.getElementById("recordText");
@@ -214,7 +215,7 @@ stopRecordButton.addEventListener("click", () => {
           audioPlayback.src = audioUrl;
           audioPlayback.controls = true;
 
-          audioChunks = [];
+          // audioChunks = [];
 
           startRecordButton.disabled = false;
           stopRecordButton.disabled = true;
@@ -226,31 +227,11 @@ stopRecordButton.addEventListener("click", () => {
       console.error("Error decoding or processing audio data", error);
     }
 
-    audioChunks = [];
+    // audioChunks = [];
     startRecordButton.disabled = false;
     // customPlayButton.disabled = false;
   };
 });
-
-// customPlayButton.addEventListener("click", () => {
-//   if (!audioContext) {
-//     console.error("AudioContext not initialized");
-//     return;
-//   }
-
-//   const audioUrl = audioPlayback.src;
-//   const audioElement = new Audio(audioUrl);
-//   const source = audioContext.createMediaElementSource(audioElement);
-//   source.connect(audioContext.destination);
-
-//   audioElement.play();
-
-//   // Trigger click event on the media element's timeline
-//   const timelineControl = audioPlayback.shadowRoot.querySelector('input[type="range"]');
-//   if (timelineControl) {
-//       timelineControl.dispatchEvent(new MouseEvent('click', { bubbles: true }));
-//   }
-// });
 
 // Function to convert an AudioBuffer to a WAV Blob
 export function audioBufferToWavBlob(buffer) {
@@ -290,3 +271,56 @@ export function writeString(view, offset, string) {
     view.setUint8(offset + i, string.charCodeAt(i));
   }
 }
+
+const useSampleButton = document.getElementById("useSampleButton");
+
+useSampleButton.addEventListener("click", async () => {
+  console.log("Use sample button clicked");
+
+  if (!audioChunks.length) {
+    console.error("No audio recorded to use as sample.");
+    return;
+  }
+
+  const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
+  const arrayBuffer = await audioBlob.arrayBuffer();
+
+  if (!audioContext) {
+    console.error("AudioContext not initialized");
+    return;
+  }
+
+  try {
+    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+    console.log("Audio buffer decoded", audioBuffer);
+    updateCustomWaveform(audioBuffer); // Use function to update
+
+    // Optionally, log the type of waveform
+  } catch (error) {
+    console.error("Error decoding or processing audio data", error);
+  }
+
+    // const customWaveform = audioContext.createPeriodicWave(
+    //   new Float32Array(audioBuffer.getChannelData(0)), // Sine terms
+    //   new Float32Array(audioBuffer.getChannelData(1) || audioBuffer.getChannelData(0)) // Cosine terms
+    // );
+
+    // Get channel data and handle mono and stereo cases
+  //   const channelData = audioBuffer.numberOfChannels === 2
+  //     ? [
+  //         new Float32Array(audioBuffer.getChannelData(0)), // Left channel (Sine terms)
+  //         new Float32Array(audioBuffer.getChannelData(1))  // Right channel (Cosine terms)
+  //       ]
+  //     : [
+  //         new Float32Array(audioBuffer.getChannelData(0)), // Single channel (Sine terms)
+  //         new Float32Array(audioBuffer.getChannelData(0))  // Use the same data for Cosine terms
+  //       ];
+
+  //   const customWaveform = audioContext.createPeriodicWave(...channelData);
+
+  //   updateCustomWaveform(customWaveform);
+  //   audioChunks = [];
+  // } catch (error) {
+  //   console.error("Error decoding or processing audio data", error);
+  // }
+});

@@ -20,6 +20,7 @@ html {
 
 dialog::backdrop {
     background-color: #000000bc;
+    background-color: #000;
 }
 
 

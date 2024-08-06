@@ -4,6 +4,7 @@ import {
   setup,
   playNote,
   stopNote,
+  updateCustomWaveform,
 } from "./components/synth/synth.js";
 
 import { 
