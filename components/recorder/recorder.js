@@ -299,28 +299,4 @@ useSampleButton.addEventListener("click", async () => {
   } catch (error) {
     console.error("Error decoding or processing audio data", error);
   }
-
-    // const customWaveform = audioContext.createPeriodicWave(
-    //   new Float32Array(audioBuffer.getChannelData(0)), // Sine terms
-    //   new Float32Array(audioBuffer.getChannelData(1) || audioBuffer.getChannelData(0)) // Cosine terms
-    // );
-
-    // Get channel data and handle mono and stereo cases
-  //   const channelData = audioBuffer.numberOfChannels === 2
-  //     ? [
-  //         new Float32Array(audioBuffer.getChannelData(0)), // Left channel (Sine terms)
-  //         new Float32Array(audioBuffer.getChannelData(1))  // Right channel (Cosine terms)
-  //       ]
-  //     : [
-  //         new Float32Array(audioBuffer.getChannelData(0)), // Single channel (Sine terms)
-  //         new Float32Array(audioBuffer.getChannelData(0))  // Use the same data for Cosine terms
-  //       ];
-
-  //   const customWaveform = audioContext.createPeriodicWave(...channelData);
-
-  //   updateCustomWaveform(customWaveform);
-  //   audioChunks = [];
-  // } catch (error) {
-  //   console.error("Error decoding or processing audio data", error);
-  // }
 });

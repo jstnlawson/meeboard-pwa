@@ -138,9 +138,6 @@ export function assignFrequenciesToKeys() {
                 break;
         }
 
-        // if (note && octave) {
-        //     key.dataset.frequency = noteFreq[octave][note];
-        // }
         if (note && octave) {
             key.dataset.frequency = noteFreq[octave][note];
             for (const [keyboardKey, mappedNote] of Object.entries(keyMapping)) {

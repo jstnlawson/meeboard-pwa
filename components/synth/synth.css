@@ -278,31 +278,18 @@
     Sound Select
 *****************************************************/
 
-/* .wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: start;
-    flex-direction: column;
-    max-height: 29vh;
-    box-sizing: border-box;
-} */
-
 .control-panel__sounds {
     display: flex;
     gap: 3px;
     border: 1px solid #000;
     padding: 6px;
     border-radius: 9px;
-    /* position: relative; */
     width: fit-content;
-    /* max-height: 20vh; */
 }
 
 .sounds-title {
-    /* position: absolute; */
     background-color: #eee;
     background: transparent;
-    /* top: -15%; */
     font-size: 12px;
     padding: 1px;
     margin-left: 6px;
@@ -333,7 +320,6 @@
 }
 
 .select-btn:active {
-    /* background: radial-gradient(circle, #000 0%, #555 100%); */
     border: 5px solid #000;
     color: #ddd;
     font-size: 9px;
@@ -357,7 +343,6 @@
 .sound-select_screen {
     appearance: none;
     width: fit-content;
-    /* height: 95%; */
     padding: 5px 10px;
     background-image: linear-gradient(to right, #333 0%, #666 50%, #333 100%);
     color: #00fff2a1;
@@ -370,5 +355,4 @@
 .sound-select_screen option:checked {
     background: #00fff2;
     color: #000;
-    /* color: #fff; */
 }
