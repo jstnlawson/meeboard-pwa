@@ -309,9 +309,10 @@ export function writeString(view, offset, string) {
 //     console.error("Error decoding or processing audio data", error);
 //   }
 // });
+const waveformImage = document.getElementById("waveformImage");
 
 // Function to draw waveform and create an image
-function drawWaveform(audioBuffer) {
+function drawSampleWaveform(audioBuffer) {
   const canvas = document.getElementById("waveformCanvas");
   const canvasCtx = canvas.getContext("2d");
   const bufferLength = audioBuffer.length;
@@ -352,13 +353,14 @@ function drawWaveform(audioBuffer) {
   canvasCtx.stroke();
 
   // Convert the canvas to an image
-  const waveformImage = document.getElementById("waveformImage");
   waveformImage.src = canvas.toDataURL("image/png");
 }
 
 // useSampleButton event listener
 useSampleButton.addEventListener("click", async () => {
   console.log("Use sample button clicked");
+
+ 
 
   if (!audioChunks.length) {
     console.error("No audio recorded to use as sample.");
@@ -378,10 +380,13 @@ useSampleButton.addEventListener("click", async () => {
     console.log("Audio buffer decoded", audioBuffer);
 
     // Draw the waveform and create an image
-    drawWaveform(audioBuffer);
+    drawSampleWaveform(audioBuffer);
 
     // Call the function to update the synthesizer with the new audio buffer
     updateCustomWaveform(audioBuffer); // Ensure this is called to load the sample for playback
+
+    // Change waveformImage display to block
+    waveformImage.style.display = "block";
 
     // Automatically select "sample" in the waveform selector
     const waveformSelect = document.getElementById("waveformSelect");
