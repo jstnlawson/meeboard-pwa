@@ -7,15 +7,17 @@ let sampleNote = {};
 const keyboard = document.querySelector(".meeboard_keys");
 const wavePicker = document.querySelector("select[name='waveform']");
 const volumeControl = document.querySelector("input[name='volume']");
+const whiteKeys = document.querySelectorAll(".white-key");
+const blackKeys = document.querySelectorAll(".black-key");
 
 let noteFreq = [];
 export let customWaveform;
 let sineTerms = null;
 let cosineTerms = null;
 
-var select = document.getElementById("waveformSelect");
-var selectPrev = document.getElementById("selectPrev");
-var selectNext = document.getElementById("selectNext");
+const select = document.getElementById("waveformSelect");
+const selectPrev = document.getElementById("selectPrev");
+const selectNext = document.getElementById("selectNext");
 
 // Event listener for previous button
 selectPrev.addEventListener("click", function () {
@@ -68,30 +70,13 @@ export function createNoteTable() {
     { note: "A", freq: 55.0 },
     { note: "A#", freq: 58.270470189761239 },
     { note: "B", freq: 61.735412657015513 },
+    { note: "highC", freq: 32.703195662574829 },
   ];
-
-  // const sampleNotes = [
-  //   { sampleNote: "C", speed: 1.0 }, // Base speed
-  //   { sampleNote: "C#", speed: 1.0594630943592953 },
-  //   { sampleNote: "D", speed: 1.122462048309373 },
-  //   { sampleNote: "D#", speed: 1.1892071150027212 },
-  //   { sampleNote: "E", speed: 1.2599210498948734 },
-  //   { sampleNote: "F", speed: 1.3348398541700346 },
-  //   { sampleNote: "F#", speed: 1.4142135623730954 },
-  //   { sampleNote: "G", speed: 1.498307076876682 },
-  //   { sampleNote: "G#", speed: 1.5874010519682 },
-  //   { sampleNote: "A", speed: 1.6817928305074297 },
-  //   { sampleNote: "A#", speed: 1.7817974362806794 },
-  //   { sampleNote: "B", speed: 1.887748625363388 },
-  // ];
-
-  console.log(sampleNotes);
 
   for (let octave = 1; octave <= 8; octave++) {
     notes.forEach((note) => {
       noteFreq[octave][note.note] = note.freq * Math.pow(2, octave - 1);
     });
-    
   }
 }
 
@@ -170,7 +155,6 @@ export function assignFrequenciesToKeys() {
 }
 
 export function assignSpeedsToKeys() {
-
   const keys = keyboard.querySelectorAll("button");
 
   keys.forEach((key) => {
@@ -235,10 +219,6 @@ export function assignSpeedsToKeys() {
     // Set the speed and note in the dataset for later retrieval
     key.dataset.speed = speed;
     key.dataset.note = sampleNote;
-
-        // For debugging, log the assigned values
-        console.log(`Assigned speed ${speed} and note ${sampleNote} to key ${key.className}`);
-
   });
 }
 
@@ -248,22 +228,21 @@ export function updateCustomWaveform(newWaveform) {
   console.log("Custom waveform updated", customWaveform);
 }
 
-
 assignSpeedsToKeys();
 
-
-export function playNote(freq, speed) {//why isn't speed being passed in?
-
+export function playNote(freq, speed) {
   const type = wavePicker.options[wavePicker.selectedIndex].value;
   if (type === "sample" && customWaveform) {
     // Use a BufferSourceNode for the sample
     //updateCustomWaveform(customWaveform);
     const source = audioContext.createBufferSource();
     source.buffer = customWaveform; // Assuming customWaveform is an AudioBuffer
-  // Use the passed 'speed' to set the playback rate
-  source.playbackRate.value = speed;
-  console.log(`playbackRate set to: ${source.playbackRate.value} for frequency ${freq}`);
-    
+    // Use the passed 'speed' to set the playback rate
+    source.playbackRate.value = speed;
+    console.log(
+      `playbackRate set to: ${source.playbackRate.value} for frequency ${freq}`
+    );
+
     source.connect(mainGainNode);
     source.start();
     return source;
@@ -286,45 +265,6 @@ export function stopNote(osc, source) {
   }
 }
 
-// document.addEventListener("keydown", (event) => {
-//   const key = event.key.toLowerCase();
-//   const keyData = keyMapping[key];
-
-//   if (keyData) {
-//     const note = keyData.note;
-//     const octave = keyData.octave;
-//     const frequency = noteFreq[octave][note];
-
-//     if (!oscList[frequency]) {
-//       // Prevent duplicate notes
-//       const osc = playNote(frequency);
-//       oscList[frequency] = osc;
-//     }
-//   }
-// });
-
-// document.addEventListener("keydown", (event) => {
-//   const key = event.key.toLowerCase();
-//   const keyData = keyMapping[key];
-
-//   if (keyData) {
-//     const note = keyData.note;
-//     const octave = keyData.octave;
-//     const frequency = noteFreq[octave][note];
-
-//     // Get the key element that corresponds to the pressed key
-//     const keyElement = keyboard.querySelector(`button[data-key='${key}']`);
-
-//     if (!oscList[frequency]) {
-//       // Get the speed from the key's dataset
-//       const speed = keyElement ? parseFloat(keyElement.dataset.speed) : 1.0;
-//       // Play the note with the corresponding frequency and speed
-//       const osc = playNote(frequency, speed);
-//       oscList[frequency] = osc;
-//     }
-//   }
-// });
-
 document.addEventListener("keydown", (event) => {
   const key = event.key.toLowerCase();
   const keyData = keyMapping[key];
@@ -338,18 +278,27 @@ document.addEventListener("keydown", (event) => {
     const keyElement = keyboard.querySelector(`button[data-note='${note}']`);
 
     if (keyElement && !oscList[frequency]) {
+
+       // Add the appropriate active class based on the key's class
+       if (keyElement.classList.contains("white-key")) {
+        keyElement.classList.add("white-key__active");
+      } else if (keyElement.classList.contains("black-key")) {
+        keyElement.classList.add("black-key__active");
+      }
+
       // Retrieve the speed from the key's dataset
       const speed = parseFloat(keyElement.dataset.speed);
-      
+
       // Log for debugging
-      console.log(`Playing note ${note} at frequency ${frequency} with speed ${speed}`);
-      
+      console.log(
+        `Playing note ${note} at frequency ${frequency} with speed ${speed}`
+      );
+
       const osc = playNote(frequency, speed);
       oscList[frequency] = osc;
     }
   }
 });
-
 
 document.addEventListener("keyup", (event) => {
   const key = event.key.toLowerCase();
@@ -359,6 +308,18 @@ document.addEventListener("keyup", (event) => {
     const note = keyData.note;
     const octave = keyData.octave;
     const frequency = noteFreq[octave][note];
+
+     // Get the key element corresponding to the released key
+     const keyElement = keyboard.querySelector(`button[data-note='${note}']`);
+
+     if (keyElement) {
+      // Remove the appropriate active class based on the key's class
+      if (keyElement.classList.contains("white-key")) {
+        keyElement.classList.remove("white-key__active");
+      } else if (keyElement.classList.contains("black-key")) {
+        keyElement.classList.remove("black-key__active");
+      }
+    }
 
     if (oscList[frequency]) {
       stopNote(oscList[frequency]);
@@ -376,11 +337,6 @@ export const setup = (context) => {
 
   sineTerms = new Float32Array([0, 0, 1, 0, 1]);
   cosineTerms = new Float32Array(sineTerms.length);
-  //customWaveform = audioContext.createPeriodicWave(cosineTerms, sineTerms);
-
-  // volumeControl.addEventListener("input", function() {
-  //     mainGainNode.gain.value = volumeControl.value;
-  // });
 
   volumeControl.addEventListener("input", function () {
     const volume = parseFloat(volumeControl.value);
@@ -390,45 +346,26 @@ export const setup = (context) => {
   });
 
   // Update the handleEvent function
-function handleEvent(event) {
-  const key = event.target;
-  if (key.tagName !== "BUTTON") return;
+  function handleEvent(event) {
+    const key = event.target;
+    if (key.tagName !== "BUTTON") return;
 
-  const freq = key.dataset.frequency;
-  const speed = parseFloat(key.dataset.speed); // Get the speed from the dataset and parse it to a float
-  if (!freq || !isFinite(speed)) return; // Check if freq is defined and speed is finite
+    const freq = key.dataset.frequency;
+    const speed = parseFloat(key.dataset.speed); // Get the speed from the dataset and parse it to a float
+    if (!freq || !isFinite(speed)) return; // Check if freq is defined and speed is finite
 
-  const osc = playNote(freq, speed); // Pass speed to playNote
-  oscList[key.dataset.frequency] = osc;
+    const osc = playNote(freq, speed); // Pass speed to playNote
+    oscList[key.dataset.frequency] = osc;
 
-  key.addEventListener("mouseup", () => stopEvent(key, osc), { once: true });
-  key.addEventListener("mouseleave", () => stopEvent(key, osc), { once: true });
-  key.addEventListener("touchend", () => stopEvent(key, osc), { once: true });
-  key.addEventListener("touchcancel", () => stopEvent(key, osc), { once: true });
-}
-
-  // function handleEvent(event) {
-  //   const key = event.target;
-  //   if (key.tagName !== "BUTTON") return;
-
-  //   const freq = key.dataset.frequency;
-  //   if (!freq) return;
-
-  //   const osc = playNote(freq);
-  //   oscList[key.dataset.frequency] = osc;
-
-   
-
-
-  //   key.addEventListener("mouseup", () => stopEvent(key, osc), { once: true });
-  //   key.addEventListener("mouseleave", () => stopEvent(key, osc), {
-  //     once: true,
-  //   });
-  //   key.addEventListener("touchend", () => stopEvent(key, osc), { once: true });
-  //   key.addEventListener("touchcancel", () => stopEvent(key, osc), {
-  //     once: true,
-  //   });
-  // }
+    key.addEventListener("mouseup", () => stopEvent(key, osc), { once: true });
+    key.addEventListener("mouseleave", () => stopEvent(key, osc), {
+      once: true,
+    });
+    key.addEventListener("touchend", () => stopEvent(key, osc), { once: true });
+    key.addEventListener("touchcancel", () => stopEvent(key, osc), {
+      once: true,
+    });
+  }
 
   function stopEvent(key, osc) {
     stopNote(osc);

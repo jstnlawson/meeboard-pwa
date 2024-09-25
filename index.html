@@ -58,9 +58,9 @@
         </div>
         <audio id="audioPlayback" controls></audio>
 
-        <div class="temp-btn-box" style="display: flex;">
+        <div class="sampler-btns" style="display: flex;">
+          <button data-save-sample class="save-sample-btn save-sample-btn__disabled" id="useSampleButton">use sample</button>
           <button data-close-modal class="close-modal-btn">close</button>
-          <button data-save-sample class="save-sample-btn" id="useSampleButton">use sample</button>
         </div>
 
       </div>   
@@ -113,6 +113,9 @@
               </div>
             </div>
           </div>
+          <canvas id="waveformCanvas" class="waveform-display" style="display: none;"></canvas>
+          <img id="waveformImage" alt="Waveform" style="display: block; height: 50%;">
+
           <div class="sample-btn">
             <button data-open-modal class="sample-btn__inner">
               record sample
@@ -133,6 +136,7 @@
           <div class="input-select__container">
             <input min="0" max="100" step="1" class="slider" type="range" />
           </div>
+          <!-- i may need to add data-note and data-speed attributes to the keys at some point -->
           <div class="meeboard_keys">
             <button class="white-key low-c"></button>
             <button class="black-key c-sharp"></button>

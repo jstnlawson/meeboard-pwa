@@ -168,6 +168,10 @@ audio::-internal-media-controls-overflow-button {
     color: transparent;
 }
 
+.save-sample-btn__disabled {
+    opacity: 0;
+}
+
 /**********************************************************************************
 * VU Meter
 **********************************************************************************/

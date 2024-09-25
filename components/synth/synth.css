@@ -133,7 +133,12 @@
 }
 
 .white-key:active {
-    background: linear-gradient(to right, #ccc, #eee, #ccc);
+    background: linear-gradient(to right, #d18e90, #eee, #d18e90);
+    transform: scale(0.98);
+}
+
+.white-key__active {
+    background: linear-gradient(to right, #d18e90, #eee, #d18e90);
     transform: scale(0.98);
 }
 
@@ -150,7 +155,12 @@
 }
 
 .black-key:active {
-    background: linear-gradient(to right, #111, #222, #111);
+    background: linear-gradient(to right,  #000, #52489c, #000);
+    transform: scale(0.98);
+}
+
+.black-key__active {
+    background: linear-gradient(to right, #000, #52489c, #000);
     transform: scale(0.98);
 }
 
