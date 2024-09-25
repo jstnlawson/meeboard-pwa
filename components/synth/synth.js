@@ -46,7 +46,7 @@ const keyMapping = {
   h: { note: "A", octave: 3 },
   u: { note: "A#", octave: 3 },
   j: { note: "B", octave: 3 },
-  k: { note: "C", octave: 4 },
+  k: { note: "highC", octave: 4 },
 };
 
 export function createNoteTable() {
