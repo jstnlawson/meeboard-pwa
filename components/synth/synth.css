@@ -348,6 +348,9 @@
     border-radius: 3px;
     padding: 0 2px;
     box-sizing: border-box;
+    height: 73px;
+    width: 101px;
+    /*  these are temporary sizes */
 }
 
 .sound-select_screen {
@@ -365,4 +368,19 @@
 .sound-select_screen option:checked {
     background: #00fff2;
     color: #000;
+}
+
+/*****************************************************
+    Waveform Display
+*****************************************************/
+
+.waveform-img {
+    /* display: none; */
+    /* width: fit-content; */
+    background-image: linear-gradient(to right, rgb(51, 51, 51) 0%, rgb(102, 102, 102) 50%, rgb(51, 51, 51) 100%);
+    color: rgba(0, 255, 242, 0.631);
+    font-family: monospace;
+    border: none;
+    border-radius: 1.5px;
+    box-sizing: border-box;
 }

@@ -26,7 +26,9 @@
   </head>
   <body>
     <dialog data-modal-start class="start-modal">
-      <button data-start-app class="temp-btn" id="startApp">Load Meeboard</button>
+      <button data-start-app class="temp-btn" id="startApp">
+        Load Meeboard
+      </button>
     </dialog>
     <dialog data-modal class="modal" id="recordModal">
       <div class="vu-meter">
@@ -58,12 +60,17 @@
         </div>
         <audio id="audioPlayback" controls></audio>
 
-        <div class="sampler-btns" style="display: flex;">
-          <button data-save-sample class="save-sample-btn save-sample-btn__disabled" id="useSampleButton">use sample</button>
+        <div class="sampler-btns" style="display: flex">
+          <button
+            data-save-sample
+            class="save-sample-btn save-sample-btn__disabled"
+            id="useSampleButton"
+          >
+            use sample
+          </button>
           <button data-close-modal class="close-modal-btn">close</button>
         </div>
-
-      </div>   
+      </div>
     </dialog>
 
     <div class="meeboard">
@@ -113,9 +120,21 @@
               </div>
             </div>
           </div>
-          <canvas id="waveformCanvas" class="waveform-display" style="display: none;"></canvas>
-          <img id="waveformImage" alt="Waveform" style="display: none; height: 50%;" class="wave-form-image">
-
+          <div class="wrapper">
+            <span class="sounds-title">wave</span>
+            <div class="control-panel__sounds">
+              <div class="screen-bg">
+                <canvas
+                  id="waveformCanvas"
+                  class="waveform-display"
+                  width="90"
+                  height="61"
+                  style="display: none"
+                ></canvas>
+                <img id="waveformImage" alt="Waveform" class="waveform-img" />
+              </div>
+            </div>
+          </div>
           <div class="sample-btn">
             <button data-open-modal class="sample-btn__inner">
               record sample

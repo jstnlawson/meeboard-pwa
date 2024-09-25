@@ -324,12 +324,21 @@ function drawSampleWaveform(audioBuffer) {
   const WIDTH = canvas.width;
   const HEIGHT = canvas.height;
 
+  // Create a linear gradient
+const gradient = canvasCtx.createLinearGradient(0, 0, canvas.width, 0); // From left to right
+gradient.addColorStop(0, 'rgb(51, 51, 51)');   // Start color
+gradient.addColorStop(0.5, 'rgb(102, 102, 102)'); // Middle color
+gradient.addColorStop(1, 'rgb(51, 51, 51)');   // End color
+
+// Set the gradient as the fill style
+canvasCtx.fillStyle = gradient;
+
   // Clear canvas
-  canvasCtx.fillStyle = 'rgb(200, 200, 200)';
+  // canvasCtx.fillStyle = 'linear-gradient(to right, rgb(51, 51, 51) 0%, rgb(102, 102, 102) 50%, rgb(51, 51, 51) 100%)';
   canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
   canvasCtx.lineWidth = 2;
-  canvasCtx.strokeStyle = 'rgb(0, 0, 0)';
+  canvasCtx.strokeStyle = 'rgba(0, 255, 242, 0.631)';
 
   canvasCtx.beginPath();
 
