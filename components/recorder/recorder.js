@@ -310,6 +310,7 @@ export function writeString(view, offset, string) {
 //   }
 // });
 const waveformImage = document.getElementById("waveformImage");
+const noSampleScreen = document.getElementById("noSampleScreen");
 
 // Function to draw waveform and create an image
 function drawSampleWaveform(audioBuffer) {
@@ -337,7 +338,7 @@ canvasCtx.fillStyle = gradient;
   // canvasCtx.fillStyle = 'linear-gradient(to right, rgb(51, 51, 51) 0%, rgb(102, 102, 102) 50%, rgb(51, 51, 51) 100%)';
   canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
-  canvasCtx.lineWidth = 2;
+  canvasCtx.lineWidth = 1;
   canvasCtx.strokeStyle = 'rgba(0, 255, 242, 0.631)';
 
   canvasCtx.beginPath();
@@ -396,6 +397,7 @@ useSampleButton.addEventListener("click", async () => {
 
     // Change waveformImage display to block
     waveformImage.style.display = "block";
+    noSampleScreen.style.display = "none";
 
     // Automatically select "sample" in the waveform selector
     const waveformSelect = document.getElementById("waveformSelect");
