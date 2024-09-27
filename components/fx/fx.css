@@ -1,0 +1,96 @@
+/*****************************************************
+    FX Box
+*****************************************************/
+
+.fx-container {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.fx-title {
+    font-size: 10px;
+    margin-right: 5px;
+}
+
+.fx-slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    box-sizing: border-box;
+}
+
+.fx-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 20px;
+    background: transparent;
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin: 2px;
+}
+
+.fx-level__indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3vw;
+    height: 3vw;
+    min-width: 21px;
+    min-height: 21px;
+    border: #666 1px solid;
+    border-radius: 3px;
+    box-shadow: inset 0 0 3px #444;
+    cursor: pointer;
+    background-color: #dadada;
+}
+
+.fx-level__indicator:hover {
+    box-shadow: inset 0 0 3px #000;
+
+}
+
+.fxl-light {
+    /* border-radius: 50%; */
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+.yellow-light {
+    background-color: #fffd8280;
+    box-shadow: inset 0 0 3px #33333300, 0 0 5px var(--yellow);
+}
+
+.fxll-two {
+    background-image: linear-gradient(to right, #fffd8280, #52489cbb);
+    box-shadow: inset 0 0 3px #33333300, 0 0 5px var(--yellow);
+}
+
+.fxll-three {
+    background-color: #52489cbb;
+    box-shadow: inset 0 0 0px #333, 0 0 20px var(--purple);
+}
+
+.fxll-four {
+    background-image: linear-gradient(to right, #52489cbb, #de4045b4);
+    box-shadow: inset 0 0 3px #333, 0 0 10px var(--pink);
+}
+
+.fxll-five {
+    background-color: #de4045b4;
+    box-shadow: inset 0 0 3px #333, 0 0 10px var(--pink);
+}
+
+.color-example {
+    width: 100%;
+    height: 20px;
+    margin: 0 20px;
+    background-image: linear-gradient(to right, var(--yellow), var(--purple), var(--pink));
+}

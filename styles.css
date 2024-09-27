@@ -1,5 +1,6 @@
 @import url('components/recorder/recorder.css');
 @import url('components/synth/synth.css');
+@import url('components/fx/fx.css');
 
 :root {
     --teal: #00fff2;

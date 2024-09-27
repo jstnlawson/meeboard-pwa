@@ -88,7 +88,8 @@
     align-items: center;
     flex-direction: column;
     width: 1vw;
-    height: 99px;
+    height: 90%;
+    min-height: 95px;
     box-sizing: border-box;
     z-index: 1;
 }
@@ -415,49 +416,4 @@
     border-radius: 1.5px;
     text-wrap: balance;
     box-sizing: border-box;
-}
-
-/*****************************************************
-    FX Box
-*****************************************************/
-
-.fx-container {
-    display: flex;
-    /* flex-direction: column; */
-    justify-content: center;
-    align-items: center;
-    
-}
-
-.fx-title {
-    font-size: 10px;
-    margin-right: 5px;
-}
-
-.fx-slider {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 3px;
-    box-sizing: border-box;
-}
-
-.fx-btn {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 20px;
-    width: 20px;
-    background: transparent;
-    border: 1px solid #000;
-    border-radius: 5px;
-    box-sizing: border-box;
-    margin: 2px;
-}
-
-.fx-level__indicator {
-    width: 18px;
-    height: 12px;
-    border: black 1px solid;
-    border-radius: 1px;
 }

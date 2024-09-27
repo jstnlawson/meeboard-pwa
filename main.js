@@ -13,6 +13,9 @@ import {
   // writeString,
 } from "./components/recorder/recorder.js";
 
+import { lightUpLevels, areLightsOn } from './components/fx/fx.js'; // Adjust path as per your structure
+
+
 const startModal = document.querySelector("[data-modal-start]");
 const startButton = document.querySelector("[data-start-app]");
 let audioContext;
