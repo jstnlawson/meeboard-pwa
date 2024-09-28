@@ -40,10 +40,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 3vw;
-    height: 3vw;
-    min-width: 21px;
-    min-height: 21px;
+    width: 4vw;
+    height: 2.5vw;
+    min-width: 24px;
+    min-height: 18px;
     border: #666 1px solid;
     border-radius: 3px;
     box-shadow: inset 0 0 3px #444;
@@ -68,24 +68,19 @@
     box-shadow: inset 0 0 3px #33333300, 0 0 5px var(--yellow);
 }
 
-.fxll-two {
-    background-image: linear-gradient(to right, #fffd8280, #52489cbb);
-    box-shadow: inset 0 0 3px #33333300, 0 0 5px var(--yellow);
-}
-
-.fxll-three {
+.purple-light {
     background-color: #52489cbb;
     box-shadow: inset 0 0 0px #333, 0 0 20px var(--purple);
 }
 
-.fxll-four {
-    background-image: linear-gradient(to right, #52489cbb, #de4045b4);
+.pink-light {
+    background-color: #de4045b4;
     box-shadow: inset 0 0 3px #333, 0 0 10px var(--pink);
 }
 
-.fxll-five {
-    background-color: #de4045b4;
-    box-shadow: inset 0 0 3px #333, 0 0 10px var(--pink);
+.teal-light {
+    background-color: #00fff2b4;
+    box-shadow: inset 0 0 3px #333, 0 0 10px var(--teal);
 }
 
 .color-example {
