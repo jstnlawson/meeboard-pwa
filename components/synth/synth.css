@@ -76,7 +76,7 @@
     height: 30vh;
     border: 1px solid #000;
     border-radius: 5px;
-    background: linear-gradient(to right, #777, #ddd, #fff, #ddd, #777);
+    background: linear-gradient(to right, #aaa, #ddd, #fff, #ddd, #aaa);
     box-sizing: border-box;
     /* gap: 1vw; */
     z-index: 1;

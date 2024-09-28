@@ -80,7 +80,7 @@
       <div class="meeboard_bottom-border"></div>
       <div class="meeboard_face">
         <div class="meeboard_control-panel">
-          <div class="control-panel__slider">
+          <!-- <div class="control-panel__slider">
             <span class="control-panel__slider-name">volume</span>
             <input
               type="range"
@@ -96,7 +96,7 @@
               <option value="0.0" label="Mute"></option>
               <option value="1.0" label="100%"></option>
             </datalist>
-          </div>
+          </div> -->
           <div class="wrapper">
             <span class="sounds-title">sounds</span>
 
@@ -145,11 +145,16 @@
               </div>
             </div>
           </div>
-          <div class="wrapper">
+          <div class="fx-wrapper">
+            <div class="fx-titles">
+              <span class="fx-title">volume</span>
+              <span class="fx-title">delay</span>
+              <span class="fx-title">gain</span>
+              <span class="fx-title">chorus</span>
+            </div>
             <div class="control-panel__sounds">
               <div class="sample-btns">
                 <div class="fx-container">
-                  <span class="fx-title">Volume</span>
                   <div class="fx-slider">
                     <div
                       class="fx-level__indicator fxl-one"
@@ -185,7 +190,6 @@
                 </div>
 
                 <div class="fx-container">
-                  <span class="fx-title">delay-</span>
                   <div class="fx-slider" id="delayFx">
                     <div class="fx-level__indicator" id="delayFxLevelOne">
                       <div class="fxl-light" id="delayFxLevelLightOne"></div>
@@ -218,7 +222,6 @@
                 </div>
 
                 <div class="fx-container">
-                  <span class="fx-title">gain---</span>
                   <div class="fx-slider">
                     <div
                       class="fx-level__indicator fxl-one"
@@ -254,7 +257,6 @@
                 </div>
 
                 <div class="fx-container">
-                  <span class="fx-title">chorus</span>
                   <div class="fx-slider">
                     <div
                       class="fx-level__indicator fxl-one"

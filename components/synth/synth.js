@@ -1,6 +1,8 @@
+import { setupVolumeControls } from "../fx/fx.js";
+
 let audioContext;
 const oscList = [];
-let mainGainNode = null;
+let mainGainNode;
 let sampleNotes = [];
 let sampleNote = {};
 
@@ -333,17 +335,20 @@ export const setup = (context) => {
   audioContext = context;
   mainGainNode = audioContext.createGain();
   mainGainNode.connect(audioContext.destination);
-  mainGainNode.gain.value = volumeControl.value;
+  // mainGainNode.gain.value = 0.6;
 
   sineTerms = new Float32Array([0, 0, 1, 0, 1]);
   cosineTerms = new Float32Array(sineTerms.length);
 
-  volumeControl.addEventListener("input", function () {
-    const volume = parseFloat(volumeControl.value);
-    console.log("Volume control value:", volume);
-    mainGainNode.gain.value = volume;
-    console.log("Main gain value set to:", mainGainNode.gain.value);
-  });
+  // volumeControl.addEventListener("input", function () {
+  //   const volume = parseFloat(volumeControl.value);
+  //   console.log("Volume control value:", volume);
+  //   mainGainNode.gain.value = volume;
+  //   console.log("Main gain value set to:", mainGainNode.gain.value);
+  // });
+
+
+  setupVolumeControls(mainGainNode);
 
   // Update the handleEvent function
   function handleEvent(event) {
@@ -379,3 +384,5 @@ export const setup = (context) => {
   // keyboard.addEventListener("mouseleave", handleEvent);
   // keyboard.addEventListener("touchcancel", handleEvent);
 };
+
+export { mainGainNode };
