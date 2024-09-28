@@ -16,7 +16,9 @@ html {
     padding: 0;
     overflow-x: hidden;
     background-color: #000;
-    font-family: sans-serif;
+    /* font-family: sans-serif; */
+    font-family: monospace;
+    color: var(--brown);
 }
 
 dialog::backdrop {

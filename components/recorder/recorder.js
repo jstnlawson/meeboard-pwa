@@ -339,7 +339,8 @@ canvasCtx.fillStyle = gradient;
   canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
 
   canvasCtx.lineWidth = 1;
-  canvasCtx.strokeStyle = 'rgba(0, 255, 242, 0.631)';
+  //canvasCtx.strokeStyle = 'rgba(0, 255, 242, 0.631)';
+  canvasCtx.strokeStyle = 'rgba(255, 253, 130, 0.750)';
 
   canvasCtx.beginPath();
 
