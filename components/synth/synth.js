@@ -5,8 +5,8 @@ const oscList = [];
 let mainGainNode;
 let sampleNotes = [];
 let sampleNote = {};
-let loopEnabled = false; // Track if loop is enabled
-let reverseEnabled = false;
+export let loopEnabled = false; 
+export let reverseEnabled = false;
 
 const keyboard = document.querySelector(".meeboard_keys");
 const wavePicker = document.querySelector("select[name='waveform']");
@@ -15,6 +15,9 @@ const whiteKeys = document.querySelectorAll(".white-key");
 const blackKeys = document.querySelectorAll(".black-key");
 const loopButton = document.getElementById("loopButton");
 const reverseButton = document.getElementById("reverseButton");
+const loopIcon = document.getElementById("loopIcon");
+const reverseIcon = document.getElementById("reverseIcon");
+const useSampleButton = document.getElementById("useSampleButton");
 
 let noteFreq = [];
 export let customWaveform;
@@ -42,6 +45,7 @@ selectNext.addEventListener("click", function () {
 loopButton.addEventListener("click", () => {
   loopEnabled = !loopEnabled; // Toggle the loop state
   console.log("Looping:", loopEnabled);
+  loopIcon.style.display = loopEnabled ? "block" : "none";
   // You could also change the button text or style here to indicate the state
   // loopButton.textContent = loopEnabled ? "Loop On" : "Loop Off";
 });
@@ -50,9 +54,17 @@ loopButton.addEventListener("click", () => {
 reverseButton.addEventListener("click", () => {
   reverseEnabled = !reverseEnabled; // Toggle the reverse state
   console.log("Reverse:", reverseEnabled);
+  reverseIcon.style.display = reverseEnabled ? "block" : "none";
   // reverseButton.textContent = reverseEnabled ? "Reverse On" : "Reverse Off";
   reverseCustomWaveform = createReverseCustomWaveform(customWaveform);
 
+});
+
+useSampleButton.addEventListener("click", () => {
+  loopEnabled = false;
+  loopIcon.style.display = "none";
+  reverseEnabled = false;
+  reverseIcon.style.display = "none";
 });
 
 //select.size = select.options.length;
@@ -256,6 +268,7 @@ let reverseCustomWaveform;
 export function createReverseCustomWaveform(buffer) {
   if (!buffer) {
     console.error("Buffer is not defined");
+    alert("Please load a sample first");
     return;
   }
   const channels = buffer.numberOfChannels;

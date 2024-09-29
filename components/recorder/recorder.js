@@ -5,6 +5,7 @@ const closeButton = document.querySelector("[data-close-modal]");
 const useSampleButton = document.getElementById("useSampleButton");
 const modal = document.querySelector("[data-modal]");
 const recordModal = document.getElementById("recordModal");
+const reverseButton = document.getElementById("reverseButton");
 
 openButton.addEventListener("click", () => {
   modal.showModal();
@@ -21,6 +22,11 @@ useSampleButton.addEventListener("click", () => {
   recordModal.style.display = "none";
 });
 
+reverseButton.addEventListener("click", () => {
+  const waveformImage = document.getElementById("waveformImage");
+  waveformImage.classList.toggle("flip-image"); 
+});
+
 const startRecordButton = document.getElementById("startRecord");
 const stopRecordButton = document.getElementById("stopRecord");
 const audioPlayback = document.getElementById("audioPlayback");
@@ -32,6 +38,8 @@ let audioChunks = [];
 let audioContext;
 let analyser;
 let dataArray;
+let loopEnabled;
+let reverseEnabled;
 
 // Request microphone access
 export const initializeRecorder = async (context) => {
