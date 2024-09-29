@@ -5,12 +5,16 @@ const oscList = [];
 let mainGainNode;
 let sampleNotes = [];
 let sampleNote = {};
+let loopEnabled = false; // Track if loop is enabled
+let reverseEnabled = false;
 
 const keyboard = document.querySelector(".meeboard_keys");
 const wavePicker = document.querySelector("select[name='waveform']");
 const volumeControl = document.querySelector("input[name='volume']");
 const whiteKeys = document.querySelectorAll(".white-key");
 const blackKeys = document.querySelectorAll(".black-key");
+const loopButton = document.getElementById("loopButton");
+const reverseButton = document.getElementById("reverseButton");
 
 let noteFreq = [];
 export let customWaveform;
@@ -32,6 +36,23 @@ selectNext.addEventListener("click", function () {
     select.selectedIndex + 1,
     select.options.length - 1
   );
+});
+
+// Toggle loop functionality
+loopButton.addEventListener("click", () => {
+  loopEnabled = !loopEnabled; // Toggle the loop state
+  console.log("Looping:", loopEnabled);
+  // You could also change the button text or style here to indicate the state
+  // loopButton.textContent = loopEnabled ? "Loop On" : "Loop Off";
+});
+
+// Toggle reverse functionality
+reverseButton.addEventListener("click", () => {
+  reverseEnabled = !reverseEnabled; // Toggle the reverse state
+  console.log("Reverse:", reverseEnabled);
+  // reverseButton.textContent = reverseEnabled ? "Reverse On" : "Reverse Off";
+  reverseCustomWaveform = createReverseCustomWaveform(customWaveform);
+
 });
 
 //select.size = select.options.length;
@@ -230,20 +251,52 @@ export function updateCustomWaveform(newWaveform) {
   console.log("Custom waveform updated", customWaveform);
 }
 
-assignSpeedsToKeys();
+let reverseCustomWaveform;
+
+export function createReverseCustomWaveform(buffer) {
+  if (!buffer) {
+    console.error("Buffer is not defined");
+    return;
+  }
+  const channels = buffer.numberOfChannels;
+  const length = buffer.length;
+  const sampleRate = buffer.sampleRate;
+  const reverseCustomWaveform = audioContext.createBuffer(channels, length, sampleRate);
+
+  for (let channel = 0; channel < channels; channel++) {
+    const channelData = buffer.getChannelData(channel);
+    const reverseData = reverseCustomWaveform.getChannelData(channel);
+    for (let i = 0; i < length; i++) {
+      reverseData[i] = channelData[length - i - 1];
+    }
+  }
+  return reverseCustomWaveform;
+
+}
+
+// reverseCustomWaveform = createReverseCustomWaveform(customWaveform);
+// assignSpeedsToKeys();
 
 export function playNote(freq, speed) {
+  const selectedBuffer = reverseEnabled ? reverseCustomWaveform : customWaveform;
   const type = wavePicker.options[wavePicker.selectedIndex].value;
-  if (type === "sample" && customWaveform) {
+
+  if (type === "sample" && selectedBuffer) {
+
     // Use a BufferSourceNode for the sample
-    //updateCustomWaveform(customWaveform);
     const source = audioContext.createBufferSource();
-    source.buffer = customWaveform; // Assuming customWaveform is an AudioBuffer
+    source.buffer = selectedBuffer; // Assuming customWaveform is an AudioBuffer
     // Use the passed 'speed' to set the playback rate
     source.playbackRate.value = speed;
     console.log(
       `playbackRate set to: ${source.playbackRate.value} for frequency ${freq}`
     );
+
+    // Apply the loop state
+    if (loopEnabled) {
+      source.loop = true;
+      console.log("Looping is enabled");
+    }
 
     source.connect(mainGainNode);
     source.start();
@@ -280,9 +333,8 @@ document.addEventListener("keydown", (event) => {
     const keyElement = keyboard.querySelector(`button[data-note='${note}']`);
 
     if (keyElement && !oscList[frequency]) {
-
-       // Add the appropriate active class based on the key's class
-       if (keyElement.classList.contains("white-key")) {
+      // Add the appropriate active class based on the key's class
+      if (keyElement.classList.contains("white-key")) {
         keyElement.classList.add("white-key__active");
       } else if (keyElement.classList.contains("black-key")) {
         keyElement.classList.add("black-key__active");
@@ -311,10 +363,10 @@ document.addEventListener("keyup", (event) => {
     const octave = keyData.octave;
     const frequency = noteFreq[octave][note];
 
-     // Get the key element corresponding to the released key
-     const keyElement = keyboard.querySelector(`button[data-note='${note}']`);
+    // Get the key element corresponding to the released key
+    const keyElement = keyboard.querySelector(`button[data-note='${note}']`);
 
-     if (keyElement) {
+    if (keyElement) {
       // Remove the appropriate active class based on the key's class
       if (keyElement.classList.contains("white-key")) {
         keyElement.classList.remove("white-key__active");
@@ -335,20 +387,12 @@ export const setup = (context) => {
   audioContext = context;
   mainGainNode = audioContext.createGain();
   mainGainNode.connect(audioContext.destination);
-  // mainGainNode.gain.value = 0.6;
 
   sineTerms = new Float32Array([0, 0, 1, 0, 1]);
   cosineTerms = new Float32Array(sineTerms.length);
 
-  // volumeControl.addEventListener("input", function () {
-  //   const volume = parseFloat(volumeControl.value);
-  //   console.log("Volume control value:", volume);
-  //   mainGainNode.gain.value = volume;
-  //   console.log("Main gain value set to:", mainGainNode.gain.value);
-  // });
-
-
   setupVolumeControls(mainGainNode);
+  assignSpeedsToKeys();
 
   // Update the handleEvent function
   function handleEvent(event) {
@@ -379,10 +423,6 @@ export const setup = (context) => {
 
   keyboard.addEventListener("mousedown", handleEvent);
   keyboard.addEventListener("touchstart", handleEvent);
-  // keyboard.addEventListener("mouseup", handleEvent);
-  // keyboard.addEventListener("touchend", handleEvent);
-  // keyboard.addEventListener("mouseleave", handleEvent);
-  // keyboard.addEventListener("touchcancel", handleEvent);
 };
 
 export { mainGainNode };

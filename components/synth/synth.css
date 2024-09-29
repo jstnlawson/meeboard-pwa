@@ -327,8 +327,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 35px;
-    width: 35px;
+    height: 40px;
+    width: 40px;
     border: 1px solid #666;
     border-radius: 50%;
     color: var(--brown);
@@ -461,7 +461,7 @@
     border-radius: 2px;
     box-sizing: border-box;
     width: 60px;
-    height: 30px;
+    height: 25px;
 }
 
 .sample-btn:active {

@@ -279,36 +279,6 @@ export function writeString(view, offset, string) {
   }
 }
 
-// useSampleButton.addEventListener("click", async () => {
-//   console.log("Use sample button clicked");
-
-//   if (!audioChunks.length) {
-//     console.error("No audio recorded to use as sample.");
-//     return;
-//   }
-
-//   const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
-//   const arrayBuffer = await audioBlob.arrayBuffer();
-
-//   if (!audioContext) {
-//     console.error("AudioContext not initialized");
-//     return;
-//   }
-
-//   try {
-//     const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-//     console.log("Audio buffer decoded", audioBuffer);
-//     updateCustomWaveform(audioBuffer); // Use function to update
-
-//     // Automatically select "sample" in the waveform selector
-//     const waveformSelect = document.getElementById("waveformSelect");
-//     waveformSelect.value = "sample";
-
-//     // Optionally, log the type of waveform
-//   } catch (error) {
-//     console.error("Error decoding or processing audio data", error);
-//   }
-// });
 const waveformImage = document.getElementById("waveformImage");
 const noSampleScreen = document.getElementById("noSampleScreen");
 
