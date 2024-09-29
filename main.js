@@ -13,7 +13,7 @@ import {
   // writeString,
 } from "./components/recorder/recorder.js";
 
-import { lightUpLevels, areLightsOn } from './components/fx/fx.js'; // Adjust path as per your structure
+import { lightUpLevels, areLightsOn, setUpDelayEffect } from './components/fx/fx.js'; // Adjust path as per your structure
 
 
 const startModal = document.querySelector("[data-modal-start]");
@@ -31,4 +31,5 @@ startButton.addEventListener("click", async () => {
   setup(audioContext);
 
   initializeRecorder(audioContext);
+  setUpDelayEffect(audioContext);
 });

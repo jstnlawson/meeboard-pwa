@@ -289,11 +289,10 @@ export function createReverseCustomWaveform(buffer) {
 
 // reverseCustomWaveform = createReverseCustomWaveform(customWaveform);
 // assignSpeedsToKeys();
-
+let delayNode;
 export function playNote(freq, speed) {
   const selectedBuffer = reverseEnabled ? reverseCustomWaveform : customWaveform;
   const type = wavePicker.options[wavePicker.selectedIndex].value;
-
   if (type === "sample" && selectedBuffer) {
 
     // Use a BufferSourceNode for the sample
@@ -312,6 +311,7 @@ export function playNote(freq, speed) {
     }
 
     source.connect(mainGainNode);
+   
     source.start();
     return source;
   } else if (type !== "sample") {
