@@ -40,6 +40,7 @@ let analyser;
 let dataArray;
 let loopEnabled;
 let reverseEnabled;
+//let distortionNode;
 
 // Request microphone access
 export const initializeRecorder = async (context) => {

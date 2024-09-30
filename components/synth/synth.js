@@ -5,7 +5,7 @@ const oscList = [];
 let mainGainNode;
 let sampleNotes = [];
 let sampleNote = {};
-export let loopEnabled = false; 
+export let loopEnabled = false;
 export let reverseEnabled = false;
 
 const keyboard = document.querySelector(".meeboard_keys");
@@ -57,7 +57,6 @@ reverseButton.addEventListener("click", () => {
   reverseIcon.style.display = reverseEnabled ? "block" : "none";
   // reverseButton.textContent = reverseEnabled ? "Reverse On" : "Reverse Off";
   reverseCustomWaveform = createReverseCustomWaveform(customWaveform);
-
 });
 
 useSampleButton.addEventListener("click", () => {
@@ -274,7 +273,11 @@ export function createReverseCustomWaveform(buffer) {
   const channels = buffer.numberOfChannels;
   const length = buffer.length;
   const sampleRate = buffer.sampleRate;
-  const reverseCustomWaveform = audioContext.createBuffer(channels, length, sampleRate);
+  const reverseCustomWaveform = audioContext.createBuffer(
+    channels,
+    length,
+    sampleRate
+  );
 
   for (let channel = 0; channel < channels; channel++) {
     const channelData = buffer.getChannelData(channel);
@@ -284,17 +287,16 @@ export function createReverseCustomWaveform(buffer) {
     }
   }
   return reverseCustomWaveform;
-
 }
 
-// reverseCustomWaveform = createReverseCustomWaveform(customWaveform);
-// assignSpeedsToKeys();
 let delayNode;
+
 export function playNote(freq, speed) {
-  const selectedBuffer = reverseEnabled ? reverseCustomWaveform : customWaveform;
+  const selectedBuffer = reverseEnabled
+    ? reverseCustomWaveform
+    : customWaveform;
   const type = wavePicker.options[wavePicker.selectedIndex].value;
   if (type === "sample" && selectedBuffer) {
-
     // Use a BufferSourceNode for the sample
     const source = audioContext.createBufferSource();
     source.buffer = selectedBuffer; // Assuming customWaveform is an AudioBuffer
@@ -311,7 +313,7 @@ export function playNote(freq, speed) {
     }
 
     source.connect(mainGainNode);
-   
+
     source.start();
     return source;
   } else if (type !== "sample") {
