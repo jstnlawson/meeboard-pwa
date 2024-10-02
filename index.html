@@ -98,7 +98,7 @@
             </datalist>
           </div> -->
           <div class="wrapper">
-            <span class="sounds-title">sounds</span>
+            <span class="sounds-title font">sounds</span>
 
             <div class="control-panel__sounds">
               <div class="select-btn_wrapper">
@@ -111,17 +111,17 @@
                   name="waveform"
                   id="waveformSelect"
                 >
-                  <option value="sine">sine</option>
-                  <option value="square" selected>square</option>
-                  <option value="sawtooth">sawtooth</option>
-                  <option value="triangle">triangle</option>
-                  <option value="sample">sample</option>
+                  <option value="sine" class="font">sine</option>
+                  <option value="square" class="font" selected>square</option>
+                  <option value="sawtooth" class="font">sawtooth</option>
+                  <option value="triangle" class="font">triangle</option>
+                  <option value="sample" class="font">sample</option>
                 </select>
               </div>
             </div>
           </div>
           <div class="wrapper">
-            <span class="sounds-title">sample</span>
+            <span class="sounds-title font">sample</span>
             <div class="control-panel__sounds">
               <div class="sample-btns">
                 <button data-open-modal class="sample-btn sample-btn__create">
@@ -131,7 +131,7 @@
                 <button class="sample-btn sample-btn__rev" id="reverseButton">reverse</button>
               </div>
               <div class="screen-bg">
-                <div class="no-sample-screen" id="noSampleScreen">
+                <div class="no-sample-screen font" id="noSampleScreen">
                   Click "create" to add a sample!
                 </div>
                 <canvas
@@ -146,10 +146,10 @@
           </div>
           <div class="fx-wrapper">
             <div class="fx-titles">
-              <span class="fx-title">volume</span>
-              <span class="fx-title">delay</span>
-              <span class="fx-title">gain</span>
-              <span class="fx-title">reverb</span>
+              <span class="fx-title font">volume</span>
+              <span class="fx-title font">delay</span>
+              <span class="fx-title font">gain</span>
+              <span class="fx-title font">reverb</span>
             </div>
             <div class="control-panel__sounds">
               <div class="sample-btns">
@@ -291,21 +291,16 @@
                 </div>
               </div>
             </div>
+            <div class="octave-wrapper">
+              <button class="octave-btn ob-plus" id="octaveUp">+</button>
+              <button class="octave-btn ob-minus" id="octaveDown">-</button>
+              <span class="octave-text font">octave</span>
+            </div>
           </div>
         </div>
-        <!-- <div class="control-panel__slider">
-            <input min="0" max="100" step="1" class="slider" type="range" />
-          </div>
-          <div class="control-panel__slider">
-            <input min="0" max="100" step="1" class="slider" type="range" />
-          </div>
-          <div class="control-panel__slider">
-            <input min="0" max="100" step="1" class="slider" type="range" />
-          </div> -->
-
         <div class="meeboard_slider-and-input">
-          <div class="input-select__container">
-            <input min="0" max="100" step="1" class="slider" type="range" />
+          <div class="input-select__container pitch-wheel_container">
+            <input min="0" max="100" step="1" class="slider pitch-wheel" type="range" id="pitchWheel"/>
           </div>
           <!-- i may need to add data-note and data-speed attributes to the keys at some point -->
           <div class="meeboard_keys">

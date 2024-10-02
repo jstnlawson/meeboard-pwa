@@ -179,6 +179,7 @@ export function assignFrequenciesToKeys() {
 
     if (note && octave) {
       key.dataset.frequency = noteFreq[octave][note];
+      key.dataset.octave = octave;
       for (const [keyboardKey, mappedNote] of Object.entries(keyMapping)) {
         if (mappedNote.note === note && mappedNote.octave === octave) {
           key.dataset.key = keyboardKey;
@@ -186,6 +187,7 @@ export function assignFrequenciesToKeys() {
       }
     }
   });
+  
 }
 
 export function assignSpeedsToKeys() {
@@ -255,6 +257,58 @@ export function assignSpeedsToKeys() {
     key.dataset.note = sampleNote;
   });
 }
+
+// OCTAVE LOGIC
+
+let currentOctaveShift = 0;
+
+const octaveUpButton = document.getElementById("octaveUp");
+const octaveDownButton = document.getElementById("octaveDown");
+
+octaveUpButton.addEventListener("click", () => {
+  console.log("up btn pressed", currentOctaveShift);
+  if (currentOctaveShift < 2) { // Set a maximum shift to prevent excessive frequency changes
+    currentOctaveShift++;
+    shiftOctave();
+  }
+});
+
+octaveDownButton.addEventListener("click", () => {
+  console.log("down btn pressed", currentOctaveShift);
+  if (currentOctaveShift > -2) { // Set a minimum shift
+    currentOctaveShift--;
+    shiftOctave();
+  }
+});
+
+function shiftOctave() {
+  const keys = keyboard.querySelectorAll("button");
+
+  keys.forEach((key) => {
+    const note = key.dataset.note;
+    const originalOctave = parseInt(key.dataset.octave);
+
+    // Calculate new octave based on the shift
+    const newOctave = originalOctave + currentOctaveShift;
+
+    // Ensure newOctave is within valid range (1 to 8)
+    if (newOctave >= 1 && newOctave <= 5) {
+      // Reassign the frequency based on the new octave
+      const newFrequency = noteFreq[newOctave][note];
+      key.dataset.frequency = newFrequency;
+
+      // Calculate the new speed: adjust speed by factor of 2 per octave shift
+      const originalSpeed = parseFloat(key.dataset.speed);
+      const newSpeed = originalSpeed * Math.pow(2, currentOctaveShift);
+      key.dataset.speed = newSpeed;
+
+      console.log(
+        `Key ${note} moved to octave ${newOctave}, frequency: ${newFrequency}, speed: ${newSpeed}`
+      );
+    }
+  });
+}
+
 
 export function updateCustomWaveform(newWaveform) {
   console.log("newWaveform", newWaveform);
@@ -341,33 +395,70 @@ document.addEventListener("keydown", (event) => {
 
   if (keyData) {
     const note = keyData.note;
-    const octave = keyData.octave;
+    let octave = keyData.octave + currentOctaveShift; // Apply the octave shift
+    octave = Math.max(1, Math.min(5, octave)); // Ensure the octave stays within valid bounds
+
     const frequency = noteFreq[octave][note];
 
-    // Get the key element corresponding to the pressed key
-    const keyElement = keyboard.querySelector(`button[data-note='${note}']`);
+    if (frequency) {
+      const keyElement = keyboard.querySelector(`button[data-note='${note}']`);
 
-    if (keyElement && !oscList[frequency]) {
-      // Add the appropriate active class based on the key's class
-      if (keyElement.classList.contains("white-key")) {
-        keyElement.classList.add("white-key__active");
-      } else if (keyElement.classList.contains("black-key")) {
-        keyElement.classList.add("black-key__active");
+      if (keyElement && !oscList[frequency]) {
+        if (keyElement.classList.contains("white-key")) {
+          keyElement.classList.add("white-key__active");
+        } else if (keyElement.classList.contains("black-key")) {
+          keyElement.classList.add("black-key__active");
+        }
+
+        const speed = parseFloat(keyElement.dataset.speed);
+        console.log(
+          `Playing note ${note} at frequency ${frequency} with speed ${speed}`
+        );
+
+        const osc = playNote(frequency, speed);
+        oscList[frequency] = osc;
       }
-
-      // Retrieve the speed from the key's dataset
-      const speed = parseFloat(keyElement.dataset.speed);
-
-      // Log for debugging
-      console.log(
-        `Playing note ${note} at frequency ${frequency} with speed ${speed}`
-      );
-
-      const osc = playNote(frequency, speed);
-      oscList[frequency] = osc;
     }
   }
 });
+
+
+// document.addEventListener("keydown", (event) => {
+//   const key = event.key.toLowerCase();
+//   const keyData = keyMapping[key];
+
+//   if (keyData) {
+//     const note = keyData.note;
+//     const octave = keyData.octave;
+//     const frequency = noteFreq[octave][note];
+
+
+//     if (frequency) {
+//     // Get the key element corresponding to the pressed key
+//     const keyElement = keyboard.querySelector(`button[data-note='${note}']`);
+
+//     if (keyElement && !oscList[frequency]) {
+//       // Add the appropriate active class based on the key's class
+//       if (keyElement.classList.contains("white-key")) {
+//         keyElement.classList.add("white-key__active");
+//       } else if (keyElement.classList.contains("black-key")) {
+//         keyElement.classList.add("black-key__active");
+//       }
+
+//       // Retrieve the speed from the key's dataset
+//       const speed = parseFloat(keyElement.dataset.speed);
+
+//       // Log for debugging
+//       console.log(
+//         `Playing note ${note} at frequency ${frequency} with speed ${speed}`
+//       );
+
+//       const osc = playNote(frequency, speed);
+//       oscList[frequency] = osc;
+//     }
+//   }
+//   }
+// });
 
 document.addEventListener("keyup", (event) => {
   const key = event.key.toLowerCase();
@@ -375,14 +466,14 @@ document.addEventListener("keyup", (event) => {
 
   if (keyData) {
     const note = keyData.note;
-    const octave = keyData.octave;
+    let octave = keyData.octave + currentOctaveShift; // Apply the octave shift
+    octave = Math.max(1, Math.min(5, octave)); // Ensure the octave stays within valid bounds
+
     const frequency = noteFreq[octave][note];
 
-    // Get the key element corresponding to the released key
     const keyElement = keyboard.querySelector(`button[data-note='${note}']`);
 
     if (keyElement) {
-      // Remove the appropriate active class based on the key's class
       if (keyElement.classList.contains("white-key")) {
         keyElement.classList.remove("white-key__active");
       } else if (keyElement.classList.contains("black-key")) {
@@ -396,6 +487,35 @@ document.addEventListener("keyup", (event) => {
     }
   }
 });
+
+
+// document.addEventListener("keyup", (event) => {
+//   const key = event.key.toLowerCase();
+//   const keyData = keyMapping[key];
+
+//   if (keyData) {
+//     const note = keyData.note;
+//     const octave = keyData.octave;
+//     const frequency = noteFreq[octave][note];
+
+//     // Get the key element corresponding to the released key
+//     const keyElement = keyboard.querySelector(`button[data-note='${note}']`);
+
+//     if (keyElement) {
+//       // Remove the appropriate active class based on the key's class
+//       if (keyElement.classList.contains("white-key")) {
+//         keyElement.classList.remove("white-key__active");
+//       } else if (keyElement.classList.contains("black-key")) {
+//         keyElement.classList.remove("black-key__active");
+//       }
+//     }
+
+//     if (oscList[frequency]) {
+//       stopNote(oscList[frequency]);
+//       delete oscList[frequency];
+//     }
+//   }
+// });
 
 // export function setup () {
 export const setup = (context) => {

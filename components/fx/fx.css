@@ -34,7 +34,7 @@
 }
 
 .fx-title {
-    font-size: 10px;
+    font-size: 12px;
     margin-right: 5px;
 }
 
@@ -129,4 +129,44 @@
     height: 20px;
     margin: 0 20px;
     background-image: linear-gradient(to right, var(--yellow), var(--purple), var(--pink));
+}
+
+.octave-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    /* padding: 10px; */
+    border: none;
+    width: fit-content;
+    height: 100%;
+    background-color: transparent;
+    font-size: 12px;
+}
+
+.octave-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3vw;
+    min-height: 25px;
+    width: 3vw;
+    min-width: 25px;
+    box-sizing: border-box;
+    /* margin: 2px; */
+    border: #666 1px solid;
+    border-radius: 50% 50% 3px 3px;
+    box-shadow: inset 0 0 3px #444;
+    cursor: pointer;
+    background-color: #dadada;
+    background-image: linear-gradient(to right, transparent, #ffffff9b, transparent);
+}
+
+.ob-plus {
+    border-radius: 50% 50% 3px 3px;
+}
+
+.ob-minus {
+    border-radius: 3px 3px 50% 50%;
 }
