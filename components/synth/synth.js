@@ -264,12 +264,14 @@ let currentOctaveShift = 0;
 
 const octaveUpButton = document.getElementById("octaveUp");
 const octaveDownButton = document.getElementById("octaveDown");
+const octaveButtons = document.querySelectorAll(".octave-btn");
 
 octaveUpButton.addEventListener("click", () => {
   console.log("up btn pressed", currentOctaveShift);
   if (currentOctaveShift < 2) { // Set a maximum shift to prevent excessive frequency changes
     currentOctaveShift++;
     shiftOctave();
+    updateOctaveButtonColors();
   }
 });
 
@@ -278,8 +280,39 @@ octaveDownButton.addEventListener("click", () => {
   if (currentOctaveShift > -2) { // Set a minimum shift
     currentOctaveShift--;
     shiftOctave();
+    updateOctaveButtonColors();
   }
 });
+
+// Iterate over each octave button and add event listeners
+octaveButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    updateOctaveButtonColors(); // Call color change logic here if needed for specific button
+  });
+});
+
+function updateOctaveButtonColors() {
+  octaveButtons.forEach((button) => {
+    button.classList.remove("yellow-light", "teal-light", "pink-light", "purple-light");
+
+    if (currentOctaveShift === 2) {
+      button.classList.add("teal-light");
+    }  
+    if (currentOctaveShift === 1) {
+      button.classList.add("yellow-light");
+    }
+    if (currentOctaveShift === 0) {
+      // No color, reset to default or leave blank
+    }
+    if (currentOctaveShift === -1) {
+      button.classList.add("pink-light");
+    }
+    if (currentOctaveShift === -2) {
+      button.classList.add("purple-light");
+    }
+  });
+}
+
 
 function shiftOctave() {
   const keys = keyboard.querySelectorAll("button");
@@ -291,7 +324,7 @@ function shiftOctave() {
     // Calculate new octave based on the shift
     const newOctave = originalOctave + currentOctaveShift;
 
-    // Ensure newOctave is within valid range (1 to 8)
+    // Ensure newOctave is within valid range (1 to 5)
     if (newOctave >= 1 && newOctave <= 5) {
       // Reassign the frequency based on the new octave
       const newFrequency = noteFreq[newOctave][note];
@@ -302,9 +335,9 @@ function shiftOctave() {
       const newSpeed = originalSpeed * Math.pow(2, currentOctaveShift);
       key.dataset.speed = newSpeed;
 
-      console.log(
-        `Key ${note} moved to octave ${newOctave}, frequency: ${newFrequency}, speed: ${newSpeed}`
-      );
+      // console.log(
+      //   `Key ${note} moved to octave ${newOctave}, frequency: ${newFrequency}, speed: ${newSpeed}`
+      // );
     }
   });
 }

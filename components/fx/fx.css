@@ -91,30 +91,7 @@
     height: 100%;
 }
 
-.yellow-light {
-    background-color: rgba(255, 253, 130, 0.502);
-    background-image: linear-gradient(to right, #a9a75180, #fffd8280, #a9a75180);
-    box-shadow: inset 0 0 3px #33333300, 0 0 5px var(--yellow);
-    
-}
 
-.purple-light {
-    background-color: #9587fbbb;
-    background-image: linear-gradient(to right, #52489cbb, #b7adfebb, #52489cbb);
-    box-shadow: inset 0 0 0px #33333300, 0 0 20px var(--purple);
-}
-
-.pink-light {
-    background-color: #ff777cb4;
-    background-image: linear-gradient(to right, #de4045bb, #fea0a3b4, #de4045bb);
-    box-shadow: inset 0 0 3px #33333300, 0 0 10px var(--pink);
-}
-
-.teal-light {
-    background-color: #00fff2b4;
-    background-image: linear-gradient(to right, #01b7aebb, #98f7f3b4, #01b7aebb);
-    box-shadow: inset 0 0 3px #33333300, 0 0 10px var(--teal);
-}
 
 .fxl-light:hover, .yellow-light:hover, .purple-light:hover, .pink-light:hover, .teal-light:hover {
     box-shadow: inset 0 0 2px #000;
@@ -169,4 +146,29 @@
 
 .ob-minus {
     border-radius: 3px 3px 50% 50%;
+}
+
+.yellow-light {
+    background-color: rgba(255, 253, 130, 0.502);
+    background-image: linear-gradient(to right, #a9a75180, #fffd8280, #a9a75180);
+    box-shadow: inset 0 0 3px #33333300, 0 0 5px var(--yellow);
+    
+}
+
+.purple-light {
+    background-color: #9587fbbb;
+    background-image: linear-gradient(to right, #52489cbb, #b7adfebb, #52489cbb);
+    box-shadow: inset 0 0 0px #33333300, 0 0 20px var(--purple);
+}
+
+.pink-light {
+    background-color: #ff777cb4;
+    background-image: linear-gradient(to right, #de4045bb, #fea0a3b4, #de4045bb);
+    box-shadow: inset 0 0 3px #33333300, 0 0 10px var(--pink);
+}
+
+.teal-light {
+    background-color: #00fff2b4;
+    background-image: linear-gradient(to right, #01b7aebb, #98f7f3b4, #01b7aebb);
+    box-shadow: inset 0 0 3px #33333300, 0 0 10px var(--teal);
 }
