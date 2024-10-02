@@ -1,4 +1,6 @@
-import { setupVolumeControls } from "../fx/fx.js";
+import { setUpVolumeControls } from "../fx/volume/volume.js";
+import setUpOctaveControls from "../fx/octave/octave.js";
+import { currentOctaveShift } from "../fx/octave/octave.js";
 
 let audioContext;
 const oscList = [];
@@ -7,6 +9,10 @@ let sampleNotes = [];
 let sampleNote = {};
 export let loopEnabled = false;
 export let reverseEnabled = false;
+let noteFreq = [];
+export let customWaveform;
+let sineTerms = null;
+let cosineTerms = null;
 
 const keyboard = document.querySelector(".meeboard_keys");
 const wavePicker = document.querySelector("select[name='waveform']");
@@ -18,12 +24,6 @@ const reverseButton = document.getElementById("reverseButton");
 const loopIcon = document.getElementById("loopIcon");
 const reverseIcon = document.getElementById("reverseIcon");
 const useSampleButton = document.getElementById("useSampleButton");
-
-let noteFreq = [];
-export let customWaveform;
-let sineTerms = null;
-let cosineTerms = null;
-
 const select = document.getElementById("waveformSelect");
 const selectPrev = document.getElementById("selectPrev");
 const selectNext = document.getElementById("selectNext");
@@ -46,8 +46,6 @@ loopButton.addEventListener("click", () => {
   loopEnabled = !loopEnabled; // Toggle the loop state
   console.log("Looping:", loopEnabled);
   loopIcon.style.display = loopEnabled ? "block" : "none";
-  // You could also change the button text or style here to indicate the state
-  // loopButton.textContent = loopEnabled ? "Loop On" : "Loop Off";
 });
 
 // Toggle reverse functionality
@@ -187,7 +185,6 @@ export function assignFrequenciesToKeys() {
       }
     }
   });
-  
 }
 
 export function assignSpeedsToKeys() {
@@ -254,94 +251,10 @@ export function assignSpeedsToKeys() {
 
     // Set the speed and note in the dataset for later retrieval
     key.dataset.speed = speed;
+    key.dataset.originalSpeed = speed;
     key.dataset.note = sampleNote;
   });
 }
-
-// OCTAVE LOGIC
-
-let currentOctaveShift = 0;
-
-const octaveUpButton = document.getElementById("octaveUp");
-const octaveDownButton = document.getElementById("octaveDown");
-const octaveButtons = document.querySelectorAll(".octave-btn");
-
-octaveUpButton.addEventListener("click", () => {
-  console.log("up btn pressed", currentOctaveShift);
-  if (currentOctaveShift < 2) { // Set a maximum shift to prevent excessive frequency changes
-    currentOctaveShift++;
-    shiftOctave();
-    updateOctaveButtonColors();
-  }
-});
-
-octaveDownButton.addEventListener("click", () => {
-  console.log("down btn pressed", currentOctaveShift);
-  if (currentOctaveShift > -2) { // Set a minimum shift
-    currentOctaveShift--;
-    shiftOctave();
-    updateOctaveButtonColors();
-  }
-});
-
-// Iterate over each octave button and add event listeners
-octaveButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    updateOctaveButtonColors(); // Call color change logic here if needed for specific button
-  });
-});
-
-function updateOctaveButtonColors() {
-  octaveButtons.forEach((button) => {
-    button.classList.remove("yellow-light", "teal-light", "pink-light", "purple-light");
-
-    if (currentOctaveShift === 2) {
-      button.classList.add("teal-light");
-    }  
-    if (currentOctaveShift === 1) {
-      button.classList.add("yellow-light");
-    }
-    if (currentOctaveShift === 0) {
-      // No color, reset to default or leave blank
-    }
-    if (currentOctaveShift === -1) {
-      button.classList.add("pink-light");
-    }
-    if (currentOctaveShift === -2) {
-      button.classList.add("purple-light");
-    }
-  });
-}
-
-
-function shiftOctave() {
-  const keys = keyboard.querySelectorAll("button");
-
-  keys.forEach((key) => {
-    const note = key.dataset.note;
-    const originalOctave = parseInt(key.dataset.octave);
-
-    // Calculate new octave based on the shift
-    const newOctave = originalOctave + currentOctaveShift;
-
-    // Ensure newOctave is within valid range (1 to 5)
-    if (newOctave >= 1 && newOctave <= 5) {
-      // Reassign the frequency based on the new octave
-      const newFrequency = noteFreq[newOctave][note];
-      key.dataset.frequency = newFrequency;
-
-      // Calculate the new speed: adjust speed by factor of 2 per octave shift
-      const originalSpeed = parseFloat(key.dataset.speed);
-      const newSpeed = originalSpeed * Math.pow(2, currentOctaveShift);
-      key.dataset.speed = newSpeed;
-
-      // console.log(
-      //   `Key ${note} moved to octave ${newOctave}, frequency: ${newFrequency}, speed: ${newSpeed}`
-      // );
-    }
-  });
-}
-
 
 export function updateCustomWaveform(newWaveform) {
   console.log("newWaveform", newWaveform);
@@ -376,9 +289,8 @@ export function createReverseCustomWaveform(buffer) {
   return reverseCustomWaveform;
 }
 
-let delayNode;
-
 export function playNote(freq, speed) {
+  console.log("currentOctaveShift in playNote:", currentOctaveShift);
   const selectedBuffer = reverseEnabled
     ? reverseCustomWaveform
     : customWaveform;
@@ -392,15 +304,12 @@ export function playNote(freq, speed) {
     console.log(
       `playbackRate set to: ${source.playbackRate.value} for frequency ${freq}`
     );
-
     // Apply the loop state
     if (loopEnabled) {
       source.loop = true;
       console.log("Looping is enabled");
     }
-
     source.connect(mainGainNode);
-
     source.start();
     return source;
   } else if (type !== "sample") {
@@ -425,11 +334,12 @@ export function stopNote(osc, source) {
 document.addEventListener("keydown", (event) => {
   const key = event.key.toLowerCase();
   const keyData = keyMapping[key];
-
   if (keyData) {
     const note = keyData.note;
     let octave = keyData.octave + currentOctaveShift; // Apply the octave shift
     octave = Math.max(1, Math.min(5, octave)); // Ensure the octave stays within valid bounds
+
+    console.log("currentOctaveShift in keydown:", currentOctaveShift);
 
     const frequency = noteFreq[octave][note];
 
@@ -454,44 +364,6 @@ document.addEventListener("keydown", (event) => {
     }
   }
 });
-
-
-// document.addEventListener("keydown", (event) => {
-//   const key = event.key.toLowerCase();
-//   const keyData = keyMapping[key];
-
-//   if (keyData) {
-//     const note = keyData.note;
-//     const octave = keyData.octave;
-//     const frequency = noteFreq[octave][note];
-
-
-//     if (frequency) {
-//     // Get the key element corresponding to the pressed key
-//     const keyElement = keyboard.querySelector(`button[data-note='${note}']`);
-
-//     if (keyElement && !oscList[frequency]) {
-//       // Add the appropriate active class based on the key's class
-//       if (keyElement.classList.contains("white-key")) {
-//         keyElement.classList.add("white-key__active");
-//       } else if (keyElement.classList.contains("black-key")) {
-//         keyElement.classList.add("black-key__active");
-//       }
-
-//       // Retrieve the speed from the key's dataset
-//       const speed = parseFloat(keyElement.dataset.speed);
-
-//       // Log for debugging
-//       console.log(
-//         `Playing note ${note} at frequency ${frequency} with speed ${speed}`
-//       );
-
-//       const osc = playNote(frequency, speed);
-//       oscList[frequency] = osc;
-//     }
-//   }
-//   }
-// });
 
 document.addEventListener("keyup", (event) => {
   const key = event.key.toLowerCase();
@@ -521,35 +393,6 @@ document.addEventListener("keyup", (event) => {
   }
 });
 
-
-// document.addEventListener("keyup", (event) => {
-//   const key = event.key.toLowerCase();
-//   const keyData = keyMapping[key];
-
-//   if (keyData) {
-//     const note = keyData.note;
-//     const octave = keyData.octave;
-//     const frequency = noteFreq[octave][note];
-
-//     // Get the key element corresponding to the released key
-//     const keyElement = keyboard.querySelector(`button[data-note='${note}']`);
-
-//     if (keyElement) {
-//       // Remove the appropriate active class based on the key's class
-//       if (keyElement.classList.contains("white-key")) {
-//         keyElement.classList.remove("white-key__active");
-//       } else if (keyElement.classList.contains("black-key")) {
-//         keyElement.classList.remove("black-key__active");
-//       }
-//     }
-
-//     if (oscList[frequency]) {
-//       stopNote(oscList[frequency]);
-//       delete oscList[frequency];
-//     }
-//   }
-// });
-
 // export function setup () {
 export const setup = (context) => {
   audioContext = context;
@@ -559,8 +402,9 @@ export const setup = (context) => {
   sineTerms = new Float32Array([0, 0, 1, 0, 1]);
   cosineTerms = new Float32Array(sineTerms.length);
 
-  setupVolumeControls(mainGainNode);
+  setUpVolumeControls(mainGainNode);
   assignSpeedsToKeys();
+  setUpOctaveControls(keyboard, noteFreq);
 
   // Update the handleEvent function
   function handleEvent(event) {
@@ -593,4 +437,4 @@ export const setup = (context) => {
   keyboard.addEventListener("touchstart", handleEvent);
 };
 
-export { mainGainNode };
+export { mainGainNode, keyboard, noteFreq, sineTerms, cosineTerms };

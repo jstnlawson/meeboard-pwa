@@ -13,7 +13,6 @@ import {
 
 import { setUpEffects } from './components/fx/fx.js'; 
 
-
 const startModal = document.querySelector("[data-modal-start]");
 const startButton = document.querySelector("[data-start-app]");
 let audioContext;

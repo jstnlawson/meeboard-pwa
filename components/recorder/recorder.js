@@ -1,4 +1,5 @@
 import { updateCustomWaveform } from "../synth/synth.js";
+import { setOctaveToZero } from "../fx/octave/octave.js";
 
 const openButton = document.querySelector("[data-open-modal]");
 const closeButton = document.querySelector("[data-close-modal]");
@@ -20,6 +21,7 @@ closeButton.addEventListener("click", () => {
 useSampleButton.addEventListener("click", () => {
   modal.close();
   recordModal.style.display = "none";
+  setOctaveToZero();
 });
 
 reverseButton.addEventListener("click", () => {
