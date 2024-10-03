@@ -1,6 +1,17 @@
 /*****************************************************
     FX Box
 *****************************************************/
+.sample-btns__wrapper {
+    display: flex;
+    gap: 3px;
+    border: none;
+    padding: 6px;
+    border-radius: 9px;
+    width: fit-content;
+    height: fit-content;
+}
+
+
 .fx-wrapper {
     display: flex;
     justify-content: center;

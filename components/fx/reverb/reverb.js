@@ -44,7 +44,7 @@ export function setUpReverbEffect(audioContext) {
   reverbNode = audioContext.createConvolver();
 
   // Create the impulse response for the reverb
-  const impulseResponse = createImpulseResponse(2, 2); 
+  const impulseResponse = createImpulseResponse(8, 4); 
   const impulseBuffer = audioContext.createBuffer(
     1,
     impulseResponse.length,

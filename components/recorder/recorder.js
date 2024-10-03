@@ -42,7 +42,6 @@ let analyser;
 let dataArray;
 let loopEnabled;
 let reverseEnabled;
-//let distortionNode;
 
 // Request microphone access
 export const initializeRecorder = async (context) => {
@@ -389,5 +388,3 @@ useSampleButton.addEventListener("click", async () => {
     console.error("Error decoding or processing audio data", error);
   }
 });
-
-
