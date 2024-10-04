@@ -406,32 +406,70 @@ export const setup = (context) => {
   assignSpeedsToKeys();
   setUpOctaveControls(keyboard, noteFreq);
 
-  // Update the handleEvent function
-  function handleEvent(event) {
-    const key = event.target;
+  // // Update the handleEvent function
+  // function handleEvent(event) {
+  //   const key = event.target;
+  //   if (key.tagName !== "BUTTON") return;
+
+  //   const freq = key.dataset.frequency;
+  //   const speed = parseFloat(key.dataset.speed); // Get the speed from the dataset and parse it to a float
+  //   if (!freq || !isFinite(speed)) return; // Check if freq is defined and speed is finite
+
+  //   const osc = playNote(freq, speed); // Pass speed to playNote
+  //   oscList[key.dataset.frequency] = osc;
+
+  //   key.addEventListener("mouseup", () => stopEvent(key, osc), { once: true });
+  //   key.addEventListener("mouseleave", () => stopEvent(key, osc), {
+  //     once: true,
+  //   });
+  //   key.addEventListener("touchend", () => stopEvent(key, osc), { once: true });
+  //   key.addEventListener("touchcancel", () => stopEvent(key, osc), {
+  //     once: true,
+  //   });
+  // }
+
+  // function stopEvent(key, osc) {
+  //   stopNote(osc);
+  //   delete oscList[key.dataset.frequency];
+  // }
+
+  // Updated handleEvent to track multiple touches
+function handleEvent(event) {
+  const isTouch = event.type.startsWith("touch");
+  const touches = isTouch ? Array.from(event.changedTouches) : [event];
+
+  touches.forEach((touch) => {
+    const key = isTouch ? document.elementFromPoint(touch.clientX, touch.clientY) : event.target;
+
     if (key.tagName !== "BUTTON") return;
 
     const freq = key.dataset.frequency;
     const speed = parseFloat(key.dataset.speed); // Get the speed from the dataset and parse it to a float
-    if (!freq || !isFinite(speed)) return; // Check if freq is defined and speed is finite
+    if (!freq || !isFinite(speed)) return;
 
     const osc = playNote(freq, speed); // Pass speed to playNote
     oscList[key.dataset.frequency] = osc;
 
-    key.addEventListener("mouseup", () => stopEvent(key, osc), { once: true });
-    key.addEventListener("mouseleave", () => stopEvent(key, osc), {
-      once: true,
-    });
-    key.addEventListener("touchend", () => stopEvent(key, osc), { once: true });
-    key.addEventListener("touchcancel", () => stopEvent(key, osc), {
-      once: true,
-    });
-  }
+    if (isTouch) {
+      key.addEventListener("touchend", (e) => stopEvent(key, osc, e), { once: true });
+      key.addEventListener("touchcancel", (e) => stopEvent(key, osc, e), { once: true });
+    } else {
+      key.addEventListener("mouseup", () => stopEvent(key, osc), { once: true });
+      key.addEventListener("mouseleave", () => stopEvent(key, osc), { once: true });
+    }
 
-  function stopEvent(key, osc) {
-    stopNote(osc);
-    delete oscList[key.dataset.frequency];
-  }
+    key.classList.add(key.classList.contains("white-key") ? "white-key__active" : "black-key__active");
+  });
+}
+
+// Update stopEvent to remove active class and stop corresponding oscillator
+function stopEvent(key, osc, event) {
+  stopNote(osc);
+  delete oscList[key.dataset.frequency];
+
+  key.classList.remove(key.classList.contains("white-key") ? "white-key__active" : "black-key__active");
+}
+
 
   keyboard.addEventListener("mousedown", handleEvent);
   keyboard.addEventListener("touchstart", handleEvent);

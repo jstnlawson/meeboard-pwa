@@ -6,7 +6,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 2vw;
+    /* padding: 2vw; */
     /* padding-bottom: 1%; */
     box-sizing: border-box;
 }
@@ -14,6 +14,7 @@
 
 
 .meeboard_left-border {
+    display: none;
     position: absolute;
     left: 0;
     width: 50vw;
@@ -24,6 +25,7 @@
 }
 
 .meeboard_top-border {
+    display: none;
     position: absolute;
     top: 0;
     width: 100vw;
@@ -34,6 +36,7 @@
 }
 
 .meeboard_right-border {
+    display: none;
     position: absolute;
     right: 0;
     width: 50vw;
@@ -44,6 +47,7 @@
 }
 
 .meeboard_bottom-border {
+    display: none;
     position: absolute;
     bottom: 0;
     width: 100vw;
@@ -53,6 +57,16 @@
     clip-path: polygon(0 100%, 100% 100%, 75% 0, 25% 0, 0 100%);
 
     z-index: 0;
+}
+
+@media screen and (min-width: 768px) {
+    .meeboard {
+        padding: 2vw;
+    }
+    .meeboard_left-border, .meeboard_right-border, .meeboard_top-border, .meeboard_bottom-border {
+        display: block;
+    }
+    
 }
 
 .meeboard_face {
@@ -130,7 +144,7 @@
 
 .white-key {
     width: 12.5%;
-    height: 57vh;
+    height: 65vh;
     border: 1px solid #000;
     border-radius: 5px;
     background: linear-gradient(to right, #ddd, #fff, #ddd);
@@ -152,7 +166,7 @@
     position: absolute;
     top: 2px;
     width: 7.5%;
-    height: 34vh;
+    height: 37vh;
     border: none;
     border-radius: 0 0 5px 5px;
     background: linear-gradient(to right, #14110c, #42392b, #14110c);
