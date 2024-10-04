@@ -19,10 +19,21 @@ html {
     /* font-family: sans-serif; */
     font-family: monospace;
     color: var(--brown);
-    user-select: none; /* Disable text selection */
-    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
-    outline: none; /* Remove outline when buttons are focused */
 }
+
+button,
+input,
+select,
+textarea,
+div {
+    -webkit-user-select: none; /* Disable text selection */
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent; /* Remove mobile tap highlight */
+    outline: none; /* Remove focus outline */
+}
+
 
 dialog::backdrop {
     background-color: #000000bc;
