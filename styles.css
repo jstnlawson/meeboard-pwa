@@ -19,6 +19,9 @@ html {
     /* font-family: sans-serif; */
     font-family: monospace;
     color: var(--brown);
+    user-select: none; /* Disable text selection */
+    -webkit-tap-highlight-color: transparent; /* Remove tap highlight on mobile */
+    outline: none; /* Remove outline when buttons are focused */
 }
 
 dialog::backdrop {
