@@ -32,3 +32,17 @@ startButton.addEventListener("click", async () => {
 });
 
 document.addEventListener('touchmove', event => event.scale !== 1 && event.preventDefault(), { passive: false });
+document.addEventListener('contextmenu', function (event) {
+  event.preventDefault(); // Disable the context menu
+}, false);
+
+document.addEventListener('touchstart', function (event) {
+  if (event.touches.length > 1) {
+      event.preventDefault(); // Prevent zoom on multi-touch
+  }
+}, { passive: false });
+
+document.addEventListener('gesturestart', function (event) {
+  event.preventDefault(); // Prevent pinch-to-zoom
+});
+

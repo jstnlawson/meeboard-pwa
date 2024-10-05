@@ -32,6 +32,8 @@ div {
     user-select: none;
     -webkit-tap-highlight-color: transparent; /* Remove mobile tap highlight */
     outline: none; /* Remove focus outline */
+    font-size: 16px; /* Ensure no zoom on tap */
+    touch-action: manipulation; /* Prevent unwanted behaviors */
 }
 
 
