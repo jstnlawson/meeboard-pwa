@@ -343,8 +343,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 40px;
-    width: 40px;
+    height: 30px;
+    width: 30px;
     border: 1px solid #666;
     border-radius: 50%;
     color: var(--brown);
@@ -473,12 +473,12 @@
     /* text-transform: uppercase; */
     font-family: monospace;
     font-size: 10px;
-    padding: 5px;
+    padding: 2px 5px;
     cursor: pointer;
     border-radius: 2px;
     box-sizing: border-box;
-    width: 60px;
-    height: 25px;
+    width: 50px;
+    /* height: 25px; */
 }
 
 .sample-btn:active {
