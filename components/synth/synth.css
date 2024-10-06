@@ -92,7 +92,7 @@
     align-items: center;
     width: 100%;
     height: 30vh;
-    height: 30svh;
+    height: 28svh;
     border: 1px solid #000;
     border-radius: 5px;
     background: linear-gradient(to right, #aaa, #ddd, #fff, #ddd, #aaa);
@@ -147,7 +147,7 @@
 .white-key {
     width: 12.5%;
     height: 65vh;
-    height: 65svh;
+    height: 68svh;
     border: 1px solid #000;
     border-radius: 5px;
     background: linear-gradient(to right, #ddd, #fff, #ddd);
@@ -170,7 +170,7 @@
     top: 2px;
     width: 7.5%;
     height: 37vh;
-    height: 37svh;
+    height: 39svh;
     border: none;
     border-radius: 0 0 5px 5px;
     background: linear-gradient(to right, #14110c, #42392b, #14110c);
