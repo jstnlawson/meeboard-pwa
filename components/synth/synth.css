@@ -60,7 +60,7 @@
     z-index: 0;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1000px) {
     .meeboard {
         padding: 2vw;
     }
@@ -369,9 +369,9 @@
     align-items: center;
     width: fit-content;
     background-color: #111;
-    border-top: 4px solid #bbb;
-    border-right: 4px solid #ccc;
-    border-bottom: 5px solid #eee;
+    border-top: 3px solid #bbb;
+    border-right: 3px solid #ccc;
+    border-bottom: 3px solid #eee;
     border-left: 4px solid #ccc;
     border-radius: 3px;
     padding: 0 2px;

@@ -69,7 +69,7 @@ dialog::backdrop {
     justify-content: center;
     border: 1px solid #666;
     background-color: #222;
-    background: linear-gradient(to right, #aaa, #ddd, #fff, #ddd, #aaa);
+    background: linear-gradient(to right, #ccc, #ddd, #fff, #ddd, #ccc);
     color: var(--brown);
     font-family: monospace;
     font-size: 12px;
