@@ -27,6 +27,7 @@ input,
 select,
 textarea,
 div {
+    -webkit-touch-callout: none; /* Disable long press pop-up on mobile */
     -webkit-user-select: none; /* Disable text selection */
     -moz-user-select: none;
     -ms-user-select: none;
@@ -35,7 +36,6 @@ div {
     outline: none; /* Remove focus outline */
     font-size: 16px; /* Ensure no zoom on tap */
     touch-action: manipulation; /* Prevent unwanted behaviors */
-    -webkit-touch-callout: none; /* Disable long press pop-up on mobile */
 }
 
 

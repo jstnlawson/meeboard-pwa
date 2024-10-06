@@ -46,3 +46,10 @@ document.addEventListener('gesturestart', function (event) {
   event.preventDefault(); // Prevent pinch-to-zoom
 });
 
+const keys = document.querySelectorAll('.meeboard_keys button');
+keys.forEach(key => {
+  key.addEventListener('touchstart', (e) => {
+    e.preventDefault(); // Prevent long press triggering
+  });
+});
+
