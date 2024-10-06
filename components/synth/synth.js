@@ -1,4 +1,4 @@
-import { setUpVolumeControls } from "../fx/volume/volume.js";
+// import { setUpVolumeControls } from "../fx/volume/volume.js";
 import setUpOctaveControls from "../fx/octave/octave.js";
 import { currentOctaveShift } from "../fx/octave/octave.js";
 
@@ -402,7 +402,7 @@ export const setup = (context) => {
   sineTerms = new Float32Array([0, 0, 1, 0, 1]);
   cosineTerms = new Float32Array(sineTerms.length);
 
-  setUpVolumeControls(mainGainNode);
+  // setUpVolumeControls(mainGainNode);
   assignSpeedsToKeys();
   setUpOctaveControls(keyboard, noteFreq);
 

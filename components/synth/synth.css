@@ -483,7 +483,7 @@
 
 .sample-btn:active {
     border: 2px solid #666;
-    padding: 4px;
+    padding: 1px 4px;
     font-size: 9px;
 }
 

@@ -58,3 +58,30 @@ dialog::backdrop {
     
 }
 
+.btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #666;
+    background-color: #222;
+    background: linear-gradient(to right, #aaa, #ddd, #fff, #ddd, #aaa);
+    color: var(--brown);
+    font-family: monospace;
+    font-size: 12px;
+    padding: 2px 5px;
+    cursor: pointer;
+    border-radius: 2px;
+    box-sizing: border-box;
+    width: fit-content;
+}
+
+.btn:active {
+    border: 2px solid #666;
+    padding: 2px 6px;
+    font-size: 11px;
+}

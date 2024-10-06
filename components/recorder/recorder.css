@@ -20,6 +20,7 @@
     /* position: relative; */
     gap: 10px;
     border-radius: 15px;
+    height: 100svh;
     background: linear-gradient(to right, #333, #999, #333);
     /* z-index: 1; */
 }
@@ -29,8 +30,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 10px;
-    padding: 20px;
+    gap: 1px;
+    padding: 15px;
     background: linear-gradient(to right, #777, #ddd, #fff, #ddd, #777);
     border: 1px solid #000;
     border-radius: 5px;
@@ -179,7 +180,7 @@ audio::-internal-media-controls-overflow-button {
 .vu-meter {
     width: 150px;
     width: 100%;
-    height: 100px;
+    height: 25svh;
     position: relative;
     overflow: hidden;
     box-sizing: border-box;
@@ -355,8 +356,8 @@ audio::-internal-media-controls-overflow-button {
     justify-content: center;
     align-items: center;
     width: 100%;
-    gap: 10px;
-    padding: 10px;
+    /* gap: 10px; */
+    padding: 5px;
     background: linear-gradient(to right, #777, #ddd, #fff, #ddd, #777);
     background: repeating-linear-gradient(180deg, #333 0, #222 5px);
     border: 1px solid #000;
