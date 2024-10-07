@@ -87,6 +87,7 @@ dialog::backdrop {
 }
 
 #installButton {
+    position: absolute;
     display: block;
     background-color: var(--teal);
     color: white;

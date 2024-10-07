@@ -67,6 +67,12 @@ if ('serviceWorker' in navigator) {
 let deferredPrompt;
 const installButton = document.getElementById('installButton');
 
+// Allow the install button to function correctly
+installButton.addEventListener('touchstart', (e) => {
+  // Don't prevent the default behavior for the install button
+  e.stopPropagation(); // Ensure it only affects this button
+});
+
 
 window.addEventListener('beforeinstallprompt', (event) => {
   // Prevent the default mini-infobar from appearing on mobile
@@ -86,6 +92,7 @@ window.addEventListener('beforeinstallprompt', (event) => {
     deferredPrompt.userChoice.then((choiceResult) => {
       if (choiceResult.outcome === 'accepted') {
         console.log('User accepted the install prompt');
+        installButton.style.display = 'none'; // Hide the button
       } else {
         console.log('User dismissed the install prompt');
       }
