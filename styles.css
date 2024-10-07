@@ -85,3 +85,19 @@ dialog::backdrop {
     padding: 2px 6px;
     font-size: 11px;
 }
+
+#installButton {
+    display: block;
+    background-color: var(--teal);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  #installButton:hover {
+    background-color: var(--purple);
+  }
+  

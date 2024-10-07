@@ -1,0 +1,36 @@
+{
+    "name": "Meeboard",
+    "short_name": "Meeboard",
+    "description": "A musical keyboard App.",
+    "start_url": "/jstnlawson.github.io/meeboard-pwa/index.html",
+    "id": "/meeboard-pwa/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#00fff2",
+    "icons": [
+      {
+        "src": "/images/192X192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "images/512_pdf.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ],
+    "screenshots": [
+        {
+          "src": "images/wide_form.png",
+          "sizes": "1920x1080",
+          "type": "image/png",
+          "form_factor": "wide"
+        },
+        {
+            "src": "images/wide_form.png",
+            "sizes": "1920x1080",
+            "type": "image/png"
+          }
+      ]
+  }
+  
