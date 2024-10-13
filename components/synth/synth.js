@@ -296,6 +296,10 @@ export function playNote(freq, speed) {
     : customWaveform;
   const type = wavePicker.options[wavePicker.selectedIndex].value;
   if (type === "sample" && selectedBuffer) {
+    if (oscList[freq]) {
+      oscList[freq].stop();  // Stop the previous sound if it exists
+      delete oscList[freq];  // Clean up the reference
+  }
     // Use a BufferSourceNode for the sample
     const source = audioContext.createBufferSource();
     source.buffer = selectedBuffer; // Assuming customWaveform is an AudioBuffer
@@ -405,33 +409,6 @@ export const setup = (context) => {
   // setUpVolumeControls(mainGainNode);
   assignSpeedsToKeys();
   setUpOctaveControls(keyboard, noteFreq);
-
-  // // Update the handleEvent function
-  // function handleEvent(event) {
-  //   const key = event.target;
-  //   if (key.tagName !== "BUTTON") return;
-
-  //   const freq = key.dataset.frequency;
-  //   const speed = parseFloat(key.dataset.speed); // Get the speed from the dataset and parse it to a float
-  //   if (!freq || !isFinite(speed)) return; // Check if freq is defined and speed is finite
-
-  //   const osc = playNote(freq, speed); // Pass speed to playNote
-  //   oscList[key.dataset.frequency] = osc;
-
-  //   key.addEventListener("mouseup", () => stopEvent(key, osc), { once: true });
-  //   key.addEventListener("mouseleave", () => stopEvent(key, osc), {
-  //     once: true,
-  //   });
-  //   key.addEventListener("touchend", () => stopEvent(key, osc), { once: true });
-  //   key.addEventListener("touchcancel", () => stopEvent(key, osc), {
-  //     once: true,
-  //   });
-  // }
-
-  // function stopEvent(key, osc) {
-  //   stopNote(osc);
-  //   delete oscList[key.dataset.frequency];
-  // }
 
   // Updated handleEvent to track multiple touches
 function handleEvent(event) {

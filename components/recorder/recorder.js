@@ -95,7 +95,7 @@ export const initializeRecorder = async (context) => {
 let lastRms = 0;
 let isUpdatingNeedle = false;
 const minAngle = -45;
-const maxAngle = 45;
+const maxAngle = 180;
 let needleRotations = [];
 
 function updateNeedle() {
