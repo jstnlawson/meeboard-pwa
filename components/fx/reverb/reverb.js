@@ -33,7 +33,7 @@ function createImpulseResponse(duration, decay) {
 
 // Function to set up the reverb effect
 export function setUpReverbEffect(audioContext) {
-  console.log("Setting up reverb effect...");
+//   console.log("Setting up reverb effect...");
 
   if (!audioContext) {
     console.error("AudioContext is not initialized.");

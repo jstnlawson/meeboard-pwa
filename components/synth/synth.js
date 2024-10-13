@@ -290,7 +290,7 @@ export function createReverseCustomWaveform(buffer) {
 }
 
 export function playNote(freq, speed) {
-  console.log("currentOctaveShift in playNote:", currentOctaveShift);
+  // console.log("currentOctaveShift in playNote:", currentOctaveShift);
   const selectedBuffer = reverseEnabled
     ? reverseCustomWaveform
     : customWaveform;
@@ -316,7 +316,7 @@ export function playNote(freq, speed) {
     const osc = audioContext.createOscillator();
     osc.connect(mainGainNode);
     osc.type = type;
-    console.log("Waveform set to:", osc.type);
+    // console.log("Waveform set to:", osc.type);
     osc.frequency.value = freq;
     osc.start();
     return osc;

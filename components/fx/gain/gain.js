@@ -29,7 +29,7 @@ function makeDistortionCurve(amount) {
 
 // Function to add distortion effect is called setUpGainEffect
 export function setUpGainEffect(audioContext) {
-  console.log("Setting up distortion effect...");
+//   console.log("Setting up distortion effect...");
 
   if (!audioContext) {
     console.error("AudioContext is not initialized.");
@@ -65,7 +65,7 @@ export function setUpGainEffect(audioContext) {
   dryGainNode.gain.value = 1; // Full dry signal
   wetGainNode.gain.value = 0; // No wet signal
 
-  console.log("Distortion effect set up with wet/dry mix.", distortionNode);
+//   console.log("Distortion effect set up with wet/dry mix.", distortionNode);
 }
 
 // Function to set the gain/distortion level and adjust the distortion curve

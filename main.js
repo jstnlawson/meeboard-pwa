@@ -53,56 +53,52 @@ keys.forEach(key => {
   });
 });
 
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js')  // <-- This points to the root
-      .then(registration => {
-        console.log('Service Worker registered with scope:', registration.scope);
-      }).catch(err => {
-        console.log('Service Worker registration failed:', err);
-      });
-  });
-}
+// if ('serviceWorker' in navigator) {
+//   console.log('Service Worker is supported');
+//   window.addEventListener('load', () => {
+//     console.log('Window loaded');
+//     navigator.serviceWorker.register('/sw.js')  // <-- This points to the root
+//       .then(registration => {
+//         console.log('Service Worker registered with scope:', registration.scope);
+//       }).catch(err => {
+//         console.log('Service Worker registration failed:', err);
+//       });
+//   });
+// } else {
+//   console.log('Service Worker is not supported');
+// }
 
-let deferredPrompt;
-const installButton = document.getElementById('installButton');
+// let deferredPrompt;
+// const installButton = document.getElementById('installButton');
+// let isPromptSet = false;
 
-// Allow the install button to function correctly
-installButton.addEventListener('touchstart', (e) => {
-  // Don't prevent the default behavior for the install button
-  e.stopPropagation(); // Ensure it only affects this button
-});
+// window.addEventListener('beforeinstallprompt', (event) => {
+//   console.log('beforeinstallprompt event fired');
+//   event.preventDefault();
+//   deferredPrompt = event;
+//   installButton.style.display = 'block';
 
+//   // Set the prompt flag only once
+//   if (!isPromptSet) {
+//     installButton.addEventListener('click', () => {
+//       console.log('Install button clicked');
+//       deferredPrompt.prompt();
+//       deferredPrompt.userChoice.then((choiceResult) => {
+//         if (choiceResult.outcome === 'accepted') {
+//           console.log('User accepted the install prompt');
+//           installButton.style.display = 'none';
+//         } else {
+//           console.log('User dismissed the install prompt');
+//         }
+//         deferredPrompt = null;
+//       });
+//     });
+//     isPromptSet = true; // Prevents adding multiple listeners
+//   }
+// });
 
-window.addEventListener('beforeinstallprompt', (event) => {
-  // Prevent the default mini-infobar from appearing on mobile
-  event.preventDefault();
-  
-  // Save the event so it can be triggered later
-  deferredPrompt = event;
-
-  // Optionally, show your own UI to notify the user that PWA can be installed
-  //installButton.style.display = 'block'; // Show the button
-  
-  installButton.addEventListener('click', () => {
-    // Trigger the prompt
-    deferredPrompt.prompt();
-
-    // Wait for the user to respond to the prompt
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === 'accepted') {
-        console.log('User accepted the install prompt');
-        installButton.style.display = 'none'; // Hide the button
-      } else {
-        console.log('User dismissed the install prompt');
-      }
-      deferredPrompt = null;
-    });
-  });
-});
-
-window.addEventListener('appinstalled', (event) => {
-  console.log('PWA was installed');
-});
+// window.addEventListener('appinstalled', (event) => {
+//   console.log('PWA was installed');
+// });
 
 

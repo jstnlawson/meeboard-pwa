@@ -59,7 +59,7 @@ export default function setUpOctaveControls(keyboard, noteFreq) {
   
       let newSpeed;
   
-      console.log("currentOctaveShift in shiftOctave", currentOctaveShift);
+    //   console.log("currentOctaveShift in shiftOctave", currentOctaveShift);
   
       // Hardcode speed adjustments based on currentOctaveShift
       if (currentOctaveShift === 1) {
