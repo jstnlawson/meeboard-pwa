@@ -335,6 +335,7 @@
     width: 24vw;
     width: 100%;
     height: 20vh;
+    margin-top: 10px;
 }
 
 
@@ -459,7 +460,7 @@
     background-image: linear-gradient(to right, #342c20 0%, #645b4d 50%, #342c20 100%);
     color: #00fff2a1;
     font-family: monospace;
-    font-size: 11px;
+    font-size: 12px;
     border: none;
     border-radius: 1.5px;
     text-wrap: balance;
@@ -494,18 +495,24 @@
     color: var(--brown);
     /* text-transform: uppercase; */
     font-family: monospace;
-    font-size: 14px;
+    font-size: 12px;
     padding: 2px 5px;
     cursor: pointer;
     border-radius: 2px;
     box-sizing: border-box;
     height: 25px;
+    width: 70px;
 }
 
 .sample-btn:active {
     border: 2px solid #666;
     padding: 1px 4px;
-    font-size: 13px;
+    font-size: 11px;
+}
+
+.sample-btn__loop, .sample-btn__rev {
+    display: none;
+    background-image: linear-gradient(to right, #ccc, #ffffff, #ccc);
 }
 
 .loop-icon {
@@ -554,9 +561,13 @@
     }
 
     
-
+    .sound-select_screen {
+        width: 14vw;
+    }
     
-
+.screen-bg {
+    max-width: 17svw;
+}
     
 }
 
@@ -564,7 +575,6 @@
 
     .control-panel__sounds {
         width: 24vw;
-        margin-top: 10px;
     }
 
     .sound-select_screen {

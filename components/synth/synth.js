@@ -46,6 +46,7 @@ loopButton.addEventListener("click", () => {
   loopEnabled = !loopEnabled; // Toggle the loop state
   console.log("Looping:", loopEnabled);
   loopIcon.style.display = loopEnabled ? "block" : "none";
+  loopButton.classList.toggle("yellow-light", loopEnabled);
 });
 
 // Toggle reverse functionality
@@ -55,6 +56,7 @@ reverseButton.addEventListener("click", () => {
   reverseIcon.style.display = reverseEnabled ? "block" : "none";
   // reverseButton.textContent = reverseEnabled ? "Reverse On" : "Reverse Off";
   reverseCustomWaveform = createReverseCustomWaveform(customWaveform);
+  reverseButton.classList.toggle("purple-light", reverseEnabled);
 });
 
 useSampleButton.addEventListener("click", () => {

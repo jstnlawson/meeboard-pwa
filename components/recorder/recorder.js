@@ -6,9 +6,10 @@ const closeButton = document.querySelector("[data-close-modal]");
 const useSampleButton = document.getElementById("useSampleButton");
 const modal = document.querySelector("[data-modal]");
 const recordModal = document.getElementById("recordModal");
-const reverseButton = document.getElementById("reverseButton");
 const closeModalButton = document.getElementById("closeModalButton");
 const soundSelectSample = document.getElementById("soundSelectSample");
+const loopButton = document.getElementById("loopButton");
+const reverseButton = document.getElementById("reverseButton");
 
 openButton.addEventListener("click", () => {
   modal.showModal();
@@ -23,6 +24,8 @@ closeButton.addEventListener("click", () => {
 useSampleButton.addEventListener("click", () => {
   modal.close();
   recordModal.style.display = "none";
+  loopButton.style.display = "flex";
+  reverseButton.style.display = "flex";
   setOctaveToZero();
 });
 

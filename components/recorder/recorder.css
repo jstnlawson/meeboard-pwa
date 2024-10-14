@@ -296,7 +296,7 @@ audio::-internal-media-controls-overflow-button {
 }
 
 .vu-meter__text {
-    font-size: 1.25vw;
+    font-size: 14px;
     color: #604736;
     font-weight: 600;
     padding: 0.5vw;
