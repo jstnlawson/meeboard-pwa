@@ -65,15 +65,15 @@
         </div>
         <audio id="audioPlayback" controls></audio>
 
-        <div class="sampler-btns" style="display: flex">
+        <div class="sampler-btns" >
           <button
             data-save-sample
-            class="save-sample-btn save-sample-btn__disabled btn"
+            class="save-sample-btn save-sample-btn__disabled"
             id="useSampleButton"
           >
             use sample
           </button>
-          <button data-close-modal class="close-modal-btn btn">close</button>
+          <button data-close-modal class="close-modal-btn" id="closeModalButton">close</button>
         </div>
       </div>
     </dialog>
@@ -105,7 +105,7 @@
                     <option value="square" class="font" selected>square</option>
                     <option value="sawtooth" class="font">sawtooth</option>
                     <option value="triangle" class="font">triangle</option>
-                    <option value="sample" class="font">sample</option>
+                    <option value="sample" class="font" id="soundSelectSample">sample</option>
                   </select>
                 </div>
               </div>

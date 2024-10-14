@@ -7,6 +7,8 @@ const useSampleButton = document.getElementById("useSampleButton");
 const modal = document.querySelector("[data-modal]");
 const recordModal = document.getElementById("recordModal");
 const reverseButton = document.getElementById("reverseButton");
+const closeModalButton = document.getElementById("closeModalButton");
+const soundSelectSample = document.getElementById("soundSelectSample");
 
 openButton.addEventListener("click", () => {
   modal.showModal();
@@ -156,9 +158,11 @@ startRecordButton.addEventListener("click", () => {
   mediaRecorder.start();
   console.log("Recording started");
   startRecordButton.disabled = true;
+  startRecordButton.style.opacity = "0.5";
   stopRecordButton.disabled = false;
   isUpdatingNeedle = true;
   updateNeedle();
+  closeModalButton.style.display = "none";
 });
 
 stopRecordButton.addEventListener("click", () => {
@@ -175,6 +179,8 @@ stopRecordButton.addEventListener("click", () => {
   recordLight.classList.remove("record-ui__light--on");
   recordText.classList.remove("record-ui__text--on");
   useSampleButton.classList.remove("save-sample-btn__disabled");
+  closeModalButton.style.display = "flex";
+  startRecordButton.style.opacity = "1";
 
   mediaRecorder.stop();
   console.log("Recording stopped in listener");
@@ -382,6 +388,8 @@ useSampleButton.addEventListener("click", async () => {
     // Change waveformImage display to block
     waveformImage.style.display = "block";
     noSampleScreen.style.display = "none";
+
+    soundSelectSample.style.display = "block";
 
     // Automatically select "sample" in the waveform selector
     const waveformSelect = document.getElementById("waveformSelect");

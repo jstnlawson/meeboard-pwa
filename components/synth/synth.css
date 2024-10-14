@@ -337,34 +337,12 @@
     height: 20vh;
 }
 
-@media screen and (min-width: 420px) {
-    .meeboard_control-panel {
-        flex-direction: row;
-        justify-content: space-around;
-        height: 28svh;
-    }
 
-    .small-screen-wrapper {
-        padding: 0;
-    }
-
-    .white-key {
-        height: 68svh;
-    }
-
-    .black-key {
-        height: 39svh;
-    }
-
-    .control-panel__sounds {
-        width: 24vw;
-    }
-}
 
 .sounds-title {
     background-color: #eee;
     background: transparent;
-    font-size: 12px;
+    /* font-size: 16px; */
     padding: 1px;
     margin-left: 6px;
 }
@@ -437,6 +415,10 @@
 .sound-select_screen option:checked {
     background: #00fff2;
     color: #000;
+}
+
+#soundSelectSample {
+    display: none;
 }
 
 /*****************************************************
@@ -512,19 +494,18 @@
     color: var(--brown);
     /* text-transform: uppercase; */
     font-family: monospace;
-    font-size: 10px;
+    font-size: 14px;
     padding: 2px 5px;
     cursor: pointer;
     border-radius: 2px;
     box-sizing: border-box;
-    width: 50px;
-    /* height: 25px; */
+    height: 25px;
 }
 
 .sample-btn:active {
     border: 2px solid #666;
     padding: 1px 4px;
-    font-size: 9px;
+    font-size: 13px;
 }
 
 .loop-icon {
@@ -552,3 +533,36 @@
 .flip-image {
     transform: scaleX(-1);
 } 
+
+@media screen and (min-width: 420px) {
+    .meeboard_control-panel {
+        flex-direction: row;
+        justify-content: space-around;
+        height: 40svh;
+    }
+
+    .small-screen-wrapper {
+        padding: 0;
+    }
+
+    .white-key {
+        height: 55svh;
+    }
+
+    .black-key {
+        height: 30svh;
+    }
+
+    .control-panel__sounds {
+        width: 24vw;
+        margin-top: 10px;
+    }
+
+    .sound-select_screen {
+        width: 17vw;
+    }
+
+    .sounds-title {
+        margin-bottom: 10px;
+    }
+}

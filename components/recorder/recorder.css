@@ -70,12 +70,41 @@
 
 .stop-btn {
     color: #fff;
-    background: var(--brown);
+    background: var(--purple);
 }
 
 .play-btn {
     color: #333;
     background: var(--teal);
+}
+
+.record-btn:active, .stop-btn:active, .play-btn:active {
+    font-size: 15px;
+    border: 2px solid #000;
+}
+
+.save-sample-btn, .close-modal-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    box-sizing: border-box;
+    color: var(--brown);
+    background: var(--yellow);
+    border: 2px solid var(--brown);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.save-sample-btn:hover, .close-modal-btn:hover {
+    background: var(--brown);
+    color: var(--yellow);
+    border: 2px solid #000;
+}
+
+.save-sample-btn:active, .close-modal-btn:active {
+    font-size: 15px;
+    border: 3px solid #000;
 }
 
 /*****************************************************
