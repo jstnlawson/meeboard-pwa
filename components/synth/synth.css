@@ -553,6 +553,15 @@
         height: 30svh;
     }
 
+    
+
+    
+
+    
+}
+
+@media screen and (min-width: 1000px) {
+
     .control-panel__sounds {
         width: 24vw;
         margin-top: 10px;
@@ -561,8 +570,7 @@
     .sound-select_screen {
         width: 17vw;
     }
-
-    .sounds-title {
+    /* .sounds-title {
         margin-bottom: 10px;
-    }
+    } */
 }
