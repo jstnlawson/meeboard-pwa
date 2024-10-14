@@ -9,6 +9,7 @@ import {
 
 import { 
   initializeRecorder,
+  micStream,
 } from "./components/recorder/recorder.js";
 
 import { setUpEffects } from './components/fx/fx.js'; 
@@ -53,52 +54,22 @@ keys.forEach(key => {
   });
 });
 
-// if ('serviceWorker' in navigator) {
-//   console.log('Service Worker is supported');
-//   window.addEventListener('load', () => {
-//     console.log('Window loaded');
-//     navigator.serviceWorker.register('/sw.js')  // <-- This points to the root
-//       .then(registration => {
-//         console.log('Service Worker registered with scope:', registration.scope);
-//       }).catch(err => {
-//         console.log('Service Worker registration failed:', err);
-//       });
-//   });
-// } else {
-//   console.log('Service Worker is not supported');
-// }
+document.addEventListener('visibilitychange', async () => {
+  if (document.visibilityState === 'hidden') {
+    resetApp(); // Reset the app when the user navigates away
+  }
+});
 
-// let deferredPrompt;
-// const installButton = document.getElementById('installButton');
-// let isPromptSet = false;
-
-// window.addEventListener('beforeinstallprompt', (event) => {
-//   console.log('beforeinstallprompt event fired');
-//   event.preventDefault();
-//   deferredPrompt = event;
-//   installButton.style.display = 'block';
-
-//   // Set the prompt flag only once
-//   if (!isPromptSet) {
-//     installButton.addEventListener('click', () => {
-//       console.log('Install button clicked');
-//       deferredPrompt.prompt();
-//       deferredPrompt.userChoice.then((choiceResult) => {
-//         if (choiceResult.outcome === 'accepted') {
-//           console.log('User accepted the install prompt');
-//           installButton.style.display = 'none';
-//         } else {
-//           console.log('User dismissed the install prompt');
-//         }
-//         deferredPrompt = null;
-//       });
-//     });
-//     isPromptSet = true; // Prevents adding multiple listeners
-//   }
-// });
-
-// window.addEventListener('appinstalled', (event) => {
-//   console.log('PWA was installed');
-// });
-
-
+function resetApp() {
+  if (micStream) {
+    micStream.getTracks().forEach(track => track.stop()); // Stop mic stream
+  }
+  if (audioContext) {
+    audioContext.close(); // Close the audio context
+  }
+  
+  // Show the start modal again
+  startModal.showModal();
+  
+  // Optionally reset any other state (UI, effects, etc.)
+}

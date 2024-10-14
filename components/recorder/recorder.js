@@ -42,12 +42,15 @@ let analyser;
 let dataArray;
 let loopEnabled;
 let reverseEnabled;
+export let micStream;
 
 // Request microphone access
 export const initializeRecorder = async (context) => {
   audioContext = context;
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+    micStream = stream;
 
     analyser = audioContext.createAnalyser();
     analyser.fftSize = 256;
