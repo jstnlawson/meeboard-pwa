@@ -299,9 +299,9 @@ export function playNote(freq, speed) {
   const type = wavePicker.options[wavePicker.selectedIndex].value;
   if (type === "sample" && selectedBuffer) {
     if (oscList[freq]) {
-      oscList[freq].stop();  // Stop the previous sound if it exists
-      delete oscList[freq];  // Clean up the reference
-  }
+      oscList[freq].stop(); // Stop the previous sound if it exists
+      delete oscList[freq]; // Clean up the reference
+    }
     // Use a BufferSourceNode for the sample
     const source = audioContext.createBufferSource();
     source.buffer = selectedBuffer; // Assuming customWaveform is an AudioBuffer
@@ -315,13 +315,27 @@ export function playNote(freq, speed) {
       source.loop = true;
       console.log("Looping is enabled");
     }
-    source.connect(mainGainNode);
+
+    // Create an individual gain node for this note
+    const noteGainNode = audioContext.createGain();
+    noteGainNode.gain.setValueAtTime(0.5, audioContext.currentTime); // Example gain value
+    noteGainNode.connect(mainGainNode);
+
+    // Connect the source to the gain node
+    source.connect(noteGainNode);
+
     source.start();
     return source;
   } else if (type !== "sample") {
     const osc = audioContext.createOscillator();
-    osc.connect(mainGainNode);
-    osc.type = type;
+
+    const oscGainNode = audioContext.createGain();
+    oscGainNode.gain.setValueAtTime(0.5, audioContext.currentTime); // Example gain value
+    osc.connect(oscGainNode);
+    oscGainNode.connect(mainGainNode);
+
+    // osc.connect(mainGainNode);
+    // osc.type = type;
     // console.log("Waveform set to:", osc.type);
     osc.frequency.value = freq;
     osc.start();
@@ -413,42 +427,59 @@ export const setup = (context) => {
   setUpOctaveControls(keyboard, noteFreq);
 
   // Updated handleEvent to track multiple touches
-function handleEvent(event) {
-  const isTouch = event.type.startsWith("touch");
-  const touches = isTouch ? Array.from(event.changedTouches) : [event];
+  function handleEvent(event) {
+    const isTouch = event.type.startsWith("touch");
+    const touches = isTouch ? Array.from(event.changedTouches) : [event];
 
-  touches.forEach((touch) => {
-    const key = isTouch ? document.elementFromPoint(touch.clientX, touch.clientY) : event.target;
+    touches.forEach((touch) => {
+      const key = isTouch
+        ? document.elementFromPoint(touch.clientX, touch.clientY)
+        : event.target;
 
-    if (key.tagName !== "BUTTON") return;
+      if (key.tagName !== "BUTTON") return;
 
-    const freq = key.dataset.frequency;
-    const speed = parseFloat(key.dataset.speed); // Get the speed from the dataset and parse it to a float
-    if (!freq || !isFinite(speed)) return;
+      const freq = key.dataset.frequency;
+      const speed = parseFloat(key.dataset.speed); // Get the speed from the dataset and parse it to a float
+      if (!freq || !isFinite(speed)) return;
 
-    const osc = playNote(freq, speed); // Pass speed to playNote
-    oscList[key.dataset.frequency] = osc;
+      const osc = playNote(freq, speed); // Pass speed to playNote
+      oscList[key.dataset.frequency] = osc;
 
-    if (isTouch) {
-      key.addEventListener("touchend", (e) => stopEvent(key, osc, e), { once: true });
-      key.addEventListener("touchcancel", (e) => stopEvent(key, osc, e), { once: true });
-    } else {
-      key.addEventListener("mouseup", () => stopEvent(key, osc), { once: true });
-      key.addEventListener("mouseleave", () => stopEvent(key, osc), { once: true });
-    }
+      if (isTouch) {
+        key.addEventListener("touchend", (e) => stopEvent(key, osc, e), {
+          once: true,
+        });
+        key.addEventListener("touchcancel", (e) => stopEvent(key, osc, e), {
+          once: true,
+        });
+      } else {
+        key.addEventListener("mouseup", () => stopEvent(key, osc), {
+          once: true,
+        });
+        key.addEventListener("mouseleave", () => stopEvent(key, osc), {
+          once: true,
+        });
+      }
 
-    key.classList.add(key.classList.contains("white-key") ? "white-key__active" : "black-key__active");
-  });
-}
+      key.classList.add(
+        key.classList.contains("white-key")
+          ? "white-key__active"
+          : "black-key__active"
+      );
+    });
+  }
 
-// Update stopEvent to remove active class and stop corresponding oscillator
-function stopEvent(key, osc, event) {
-  stopNote(osc);
-  delete oscList[key.dataset.frequency];
+  // Update stopEvent to remove active class and stop corresponding oscillator
+  function stopEvent(key, osc, event) {
+    stopNote(osc);
+    delete oscList[key.dataset.frequency];
 
-  key.classList.remove(key.classList.contains("white-key") ? "white-key__active" : "black-key__active");
-}
-
+    key.classList.remove(
+      key.classList.contains("white-key")
+        ? "white-key__active"
+        : "black-key__active"
+    );
+  }
 
   keyboard.addEventListener("mousedown", handleEvent);
   keyboard.addEventListener("touchstart", handleEvent);

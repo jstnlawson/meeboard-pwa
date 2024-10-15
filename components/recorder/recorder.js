@@ -48,6 +48,7 @@ let dataArray;
 let loopEnabled;
 let reverseEnabled;
 export let micStream;
+let trimmedAudioBuffer;
 
 // Request microphone access
 export const initializeRecorder = async (context) => {
@@ -214,27 +215,35 @@ stopRecordButton.addEventListener("click", () => {
       source.buffer = audioBuffer;
 
       const gainNode = offlineContext.createGain();
-
-      const fadeInDuration = 0.5;
+      const fadeInDuration = 0.125; // Fade-in duration in seconds
       const totalDuration = audioBuffer.duration;
-      const endFadeStart = totalDuration - 0.75;
-      const endFadeEnd = totalDuration - 0.25;
 
-      gainNode.gain.setValueAtTime(0, 0);
-      gainNode.gain.linearRampToValueAtTime(1, fadeInDuration);
+      // Fade in
+      gainNode.gain.setValueAtTime(0, 0); // Start at 0 gain
+      gainNode.gain.linearRampToValueAtTime(1, fadeInDuration); // Ramp to 1 over fadeInDuration
+
+      // Maintain full volume during the middle of the clip
+      gainNode.gain.setValueAtTime(1, fadeInDuration); // Hold full volume after fade-in
+
+      // Fade out
+      const endFadeStart = totalDuration - 0.5; // Start fade out 0.75 seconds before the end
+      const endFadeEnd = totalDuration - 0.25; // End fade out 0.25 seconds before the end
       gainNode.gain.setValueAtTime(1, endFadeStart);
       gainNode.gain.linearRampToValueAtTime(0, endFadeEnd);
-      gainNode.gain.setValueAtTime(0, totalDuration);
+      gainNode.gain.setValueAtTime(0, totalDuration); // Ensure it ends at 0
 
       source.connect(gainNode);
       gainNode.connect(offlineContext.destination);
 
-      source.start(0);
+      source.start(0); // Start playback immediately
 
       offlineContext
         .startRendering()
         .then((renderedBuffer) => {
           console.log("Audio processing completed (offlineContext).");
+
+          // Store the trimmed audio buffer
+          trimmedAudioBuffer = renderedBuffer;
 
           // Create a new Blob from the rendered buffer
           const wavBlob = audioBufferToWavBlob(renderedBuffer);
@@ -243,8 +252,6 @@ stopRecordButton.addEventListener("click", () => {
 
           audioPlayback.src = audioUrl;
           audioPlayback.controls = true;
-
-          // audioChunks = [];
 
           startRecordButton.disabled = false;
           stopRecordButton.disabled = true;
@@ -255,10 +262,8 @@ stopRecordButton.addEventListener("click", () => {
     } catch (error) {
       console.error("Error decoding or processing audio data", error);
     }
-
-    // audioChunks = [];
+    
     startRecordButton.disabled = false;
-    // customPlayButton.disabled = false;
   };
 });
 
@@ -363,30 +368,20 @@ canvasCtx.fillStyle = gradient;
 useSampleButton.addEventListener("click", async () => {
   console.log("Use sample button clicked");
 
- 
-
-  if (!audioChunks.length) {
-    console.error("No audio recorded to use as sample.");
-    return;
-  }
-
-  const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
-  const arrayBuffer = await audioBlob.arrayBuffer();
-
-  if (!audioContext) {
-    console.error("AudioContext not initialized");
+  if (!trimmedAudioBuffer) { // Check if trimmed audio buffer exists
+    console.error("No trimmed audio recorded to use as sample.");
     return;
   }
 
   try {
-    const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-    console.log("Audio buffer decoded", audioBuffer);
-
+    // Use the trimmed audio buffer directly
+    console.log("Using trimmed audio buffer", trimmedAudioBuffer);
+    
     // Draw the waveform and create an image
-    drawSampleWaveform(audioBuffer);
+    drawSampleWaveform(trimmedAudioBuffer);
 
     // Call the function to update the synthesizer with the new audio buffer
-    updateCustomWaveform(audioBuffer); // Ensure this is called to load the sample for playback
+    updateCustomWaveform(trimmedAudioBuffer); // Use the trimmed buffer
 
     // Change waveformImage display to block
     waveformImage.style.display = "block";
@@ -399,6 +394,50 @@ useSampleButton.addEventListener("click", async () => {
     waveformSelect.value = "sample";
 
   } catch (error) {
-    console.error("Error decoding or processing audio data", error);
+    console.error("Error processing trimmed audio buffer", error);
   }
 });
+
+// // useSampleButton event listener
+// useSampleButton.addEventListener("click", async () => {
+//   console.log("Use sample button clicked");
+
+ 
+
+//   if (!audioChunks.length) {
+//     console.error("No audio recorded to use as sample.");
+//     return;
+//   }
+
+//   const audioBlob = new Blob(audioChunks, { type: mediaRecorder.mimeType });
+//   const arrayBuffer = await audioBlob.arrayBuffer();
+
+//   if (!audioContext) {
+//     console.error("AudioContext not initialized");
+//     return;
+//   }
+
+//   try {
+//     const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+//     console.log("Audio buffer decoded", audioBuffer);
+
+//     // Draw the waveform and create an image
+//     drawSampleWaveform(audioBuffer);
+
+//     // Call the function to update the synthesizer with the new audio buffer
+//     updateCustomWaveform(audioBuffer); // Ensure this is called to load the sample for playback
+
+//     // Change waveformImage display to block
+//     waveformImage.style.display = "block";
+//     noSampleScreen.style.display = "none";
+
+//     soundSelectSample.style.display = "block";
+
+//     // Automatically select "sample" in the waveform selector
+//     const waveformSelect = document.getElementById("waveformSelect");
+//     waveformSelect.value = "sample";
+
+//   } catch (error) {
+//     console.error("Error decoding or processing audio data", error);
+//   }
+// });
