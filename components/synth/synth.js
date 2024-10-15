@@ -329,13 +329,14 @@ export function playNote(freq, speed) {
     return source;
   } else if (type !== "sample") {
     const osc = audioContext.createOscillator();
-
     const oscGainNode = audioContext.createGain();
-    // oscGainNode.gain.setValueAtTime(0.5, audioContext.currentTime); // Example gain value
-    // osc.connect(oscGainNode);
-    // oscGainNode.connect(mainGainNode);
+    
+    oscGainNode.gain.value = 0.075; // Set the gain to 0.375 for the oscillator
+    osc.connect(oscGainNode); // Connect the oscillator to its gain node
+    oscGainNode.connect(mainGainNode); 
+     
 
-    osc.connect(mainGainNode);
+    // osc.connect(mainGainNode);
     osc.type = type;
     console.log("Waveform set to:", osc.type);
     osc.frequency.value = freq;
