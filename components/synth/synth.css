@@ -401,8 +401,8 @@
 
 .sound-select_screen {
     appearance: none;
-    -webkit-appearance: none;
-    display: block;
+    /* -webkit-appearance: none;
+    display: block; */
     width: 100%;
     width: fit-content;
     height: 100%;
