@@ -38,9 +38,11 @@ div {
     touch-action: manipulation; /* Prevent unwanted behaviors */
 }
 
+dialog {
+    padding: 0;
+}
 
 dialog::backdrop {
-    background-color: #000000bc;
     background-color: #000;
 }
 
@@ -52,12 +54,50 @@ dialog::backdrop {
     display: none; 
   }
 
-@media screen and (min-width: 768px) {
-   
-    .navbar {
-        display: block; 
-      }
-    
+  .start-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #222;
+    background-color: #222;
+    color: #463c2b;
+    font-size: 40px;
+    text-transform: uppercase;
+    /* height: 140px;
+    width: 220px; */
+    padding: 5px;
+}
+
+.start-btn span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    border-radius: 3px;
+    margin: 2px;
+    cursor: pointer;
+}
+
+.start-btn__inner {
+    background-color: #a93428;
+    background-color: var(--teal);
+    box-shadow:
+        inset 3px 3px 1px #8af8f2,
+        inset -3px -3px 1px #06968f,
+        2px 2px 4px #000;
+        padding: 20px;
+}
+
+.start-btn__inner:active {
+    transform: scale(.95);
+    color: var(--brown);
+    background-color: #892b21;
+    background-color: #09d2c8;
+    box-shadow:
+        inset 1px 1px 1px 0px rgba(255, 226, 226, 0.258),
+        inset 1px 1px 1px 0px transparent,
+        1px 1px 1px 0px transparent;
 }
 
 .btn {
