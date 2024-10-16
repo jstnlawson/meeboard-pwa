@@ -471,30 +471,30 @@ export const setup = (context) => {
     });
   }
 
-// New event listener for touchmove to allow sliding across keys
-keyboard.addEventListener("touchmove", (event) => {
-  const touches = Array.from(event.changedTouches);
-  touches.forEach((touch) => {
-    const key = document.elementFromPoint(touch.clientX, touch.clientY);
-    if (!key || key.tagName !== "BUTTON") return;
+// // New event listener for touchmove to allow sliding across keys
+// keyboard.addEventListener("touchmove", (event) => {
+//   const touches = Array.from(event.changedTouches);
+//   touches.forEach((touch) => {
+//     const key = document.elementFromPoint(touch.clientX, touch.clientY);
+//     if (!key || key.tagName !== "BUTTON") return;
 
-    const freq = key.dataset.frequency;
-    const speed = parseFloat(key.dataset.speed);
+//     const freq = key.dataset.frequency;
+//     const speed = parseFloat(key.dataset.speed);
 
-    // Ensure note is played if it's not already playing
-    if (!oscList[freq] && freq && isFinite(speed)) {
-      const osc = playNote(freq, speed);
-      oscList[freq] = osc;
+//     // Ensure note is played if it's not already playing
+//     if (!oscList[freq] && freq && isFinite(speed)) {
+//       const osc = playNote(freq, speed);
+//       oscList[freq] = osc;
 
-      // Add the active class when the note is played
-      key.classList.add(
-        key.classList.contains("white-key")
-          ? "white-key__active"
-          : "black-key__active"
-      );
-    }
-  });
-});
+//       // Add the active class when the note is played
+//       key.classList.add(
+//         key.classList.contains("white-key")
+//           ? "white-key__active"
+//           : "black-key__active"
+//       );
+//     }
+//   });
+// });
 
   // Update stopEvent to remove active class and stop corresponding oscillator
   function stopEvent(key, osc, event) {
