@@ -83,10 +83,10 @@ dialog::backdrop {
     background-color: #a93428;
     background-color: var(--teal);
     box-shadow:
-        inset 3px 3px 1px #8af8f2,
+        inset 3px 3px 1px #99fffa,
         inset -3px -3px 1px #06968f,
         2px 2px 4px #000;
-        padding: 20px;
+        padding: 10px;
 }
 
 .start-btn__inner:active {

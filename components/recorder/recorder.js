@@ -226,8 +226,8 @@ stopRecordButton.addEventListener("click", () => {
       gainNode.gain.setValueAtTime(1, fadeInDuration); // Hold full volume after fade-in
 
       // Fade out
-      const endFadeStart = totalDuration - 0.5; // Start fade out 0.75 seconds before the end
-      const endFadeEnd = totalDuration - 0.25; // End fade out 0.25 seconds before the end
+      const endFadeStart = totalDuration - 0.125; // Start fade out 0.75 seconds before the end
+      const endFadeEnd = totalDuration - 0.0625; // End fade out 0.25 seconds before the end
       gainNode.gain.setValueAtTime(1, endFadeStart);
       gainNode.gain.linearRampToValueAtTime(0, endFadeEnd);
       gainNode.gain.setValueAtTime(0, totalDuration); // Ensure it ends at 0
