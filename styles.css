@@ -106,4 +106,8 @@ dialog::backdrop {
   #installButton:hover {
     background-color: var(--purple);
   }
+
+  .desktop-only {
+    display: none;
+  }
   

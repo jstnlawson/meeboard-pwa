@@ -30,6 +30,7 @@ startButton.addEventListener("click", async () => {
 
   initializeRecorder(audioContext);
   setUpEffects(audioContext);
+  toggleMusicalTyping();
 });
 
 document.addEventListener('touchmove', event => event.scale !== 1 && event.preventDefault(), { passive: false });
@@ -73,3 +74,20 @@ function resetApp() {
   
   // Optionally reset any other state (UI, effects, etc.)
 }
+
+function isMobileDevice() {
+  return /Mobi|Andriod|iPad|iPhone|Windows Phone|webOS/i.test(navigator.userAgent);
+}
+
+function toggleMusicalTyping () {
+  const desktopOnly = document.querySelectorAll('.desktop-only');
+
+  if (!isMobileDevice()) {
+    desktopOnly.forEach(element => {
+      element.style.display = 'block';
+    });
+  }
+}
+
+
+
